@@ -4,17 +4,41 @@
     <meta charset="UTF-8">
     <title>ProcrastiRaptor - Welcome !</title>
     <link href="css/style.css" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
-<h1>Howdy, Pezi!</h1>
-<p>Do you have 10 minutes? How about:</p>
-<ul>
-    <li class="suggestion">Cleaning the kitchen?</li>
-    <li class="suggestion">Doing HUE homework?</li>
-    <li class="suggestion">Going for a swim?</li>
-</ul>
+<div id="start_view">
+    <h1>Howdy, Pezi!</h1>
+    <p>Do you have 10 minutes? How about:</p>
+    <ul id="start_suggestions">
+        <li class="task cat_work">
+            <div class="task_content">
+                <div class="task_head">
 
-<p><i class="fa fa-plus"></i> Create a new task for your TODO List.</p>
+                    <div class="task_title">write dummy text</div>
+                </div>
+            </div>
+            <div class="task_buttons">
+                <a class="btn btn-large" href="#"><i class="fa fa-clock-o fa-2x"></i></a>
+                <a class="btn btn-large" href="#"><i class="fa fa-check fa-2x"></i></a>
+            </div>
+        </li>
+        <li class="task cat_sport">
+            <div class="task_content">
+                <div class="task_head">
+
+                    <div class="task_title">do 10 push-ups</div>
+                </div>
+            </div>
+            <div class="task_buttons">
+                <a class="btn btn-large" href="#"><i class="fa fa-clock-o fa-2x"></i></a>
+                <a class="btn btn-large" href="#"><i class="fa fa-check fa-2x"></i></a>
+            </div>
+        </li>
+    </ul>
+
+    <p><a href="#" class="btn"><i class="fa fa-plus"></i> Create a new task for your TODO List.</a></p>
+</div>
+
 </body>
 </html>

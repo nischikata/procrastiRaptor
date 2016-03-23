@@ -22,6 +22,19 @@ ul {
 
 }
 
+#start_view {
+    margin: 1em;
+    padding: 1.2em;
+    border-radius: 5px;
+    background-color: #17676d;
+    font-family: "Helvetic Neue", Helvetica, Arial;
+    min-height: 90vh;
+}
+
+#start_suggestions {
+    margin-bottom: 3em;
+}
+
 .horizontal {
     display:inline-block;
 }
@@ -168,4 +181,8 @@ select {
 
 .hide {
     visibility: hidden;
+}
+
+a {
+    text-decoration: none;
 }
