@@ -2,11 +2,13 @@ body {
     background-color: #4f747c;
     color: seashell;
     font-size: small;
+    margin: 0px;
 }
 
 ul {
     list-style-type: none;
     padding-left:0;
+    margin: 1em;
 }
 
 .task {
@@ -20,9 +22,6 @@ ul {
 
 }
 
-
-
-
 .horizontal {
     display:inline-block;
 }
@@ -32,6 +31,7 @@ ul {
     vertical-align: middle;
     width: 75%;
 }
+
 .task_buttons {
 
     display:inline-block;
@@ -136,4 +136,36 @@ ul {
 .suggestion:active {
     position:relative;
     top:1px;
+}
+
+
+.decision_form {
+    font-family: "Helvetic Neue", Helvetica, Arial;
+    font-size: medium;
+}
+
+label {
+    font-size: small;
+    margin-left: 1.5em;
+}
+
+input {
+    padding: 3px 6px 3px 6px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+fieldset {
+    margin: 0px;
+    border: none;
+    border-bottom: solid;
+    text-align: center;
+}
+
+select {
+    font-size: large;
+}
+
+.hide {
+    visibility: hidden;
 }
