@@ -48,4 +48,5 @@ li a:hover:not(.active) {
 
 header {
     color: #333333;
+    padding: 10px;
 }
