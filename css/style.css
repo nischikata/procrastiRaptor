@@ -4,12 +4,21 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+h1 {
+    font-size: 1.5em;
+}
+
+p {
+    font-size: 1em;
+}
+
 nav {
     background: rgb(103, 205, 220);
     border-bottom: solid 4px rgba(14, 100, 145, 0.5);
     height: 45px;
     padding-top: 10px;
-
+    min-width: 400px;
+    overflow: hidden;
 }
 
 nav ul {
@@ -45,13 +54,49 @@ nav ul li:hover:not(.active) {
     height: 100%;
 }
 
-
 header {
-    color: #333333;
-    padding: 10px;
+    display: table;
+    min-width: 400px;
+    float: right;
 }
 
+#bubble {
+    padding-right: 160px;
+    background-image: url("../img/raptor_180deg.png");
+    background-size: 130px auto;
+    background-position: right 7px top;
+    background-repeat: no-repeat;
+    min-height: 195px;
+}
 
+#filler {
+    height: 20px;
+}
+
+#greeting {
+    color: #333333;
+    padding: 10px;
+
+    background-color: rgba(255, 255, 255, 0.70);
+    border-radius: 30px;
+    position: relative;
+}
+
+#greeting:before { /* this adds the triangle to the speech bubble */
+    position: absolute;
+    display: inline-block;
+    border-top: 15px solid transparent;
+    border-left: 25px solid;
+    border-bottom: 15px solid transparent;
+    border-left-color: rgba(255, 255, 255, 0.7);
+    right: -25px;
+    top: 25%;
+    content: '';
+}
+
+#task_suggestions {
+    clear: both;
+}
 
 #home {
     background-image: url("../icons/home.png");
