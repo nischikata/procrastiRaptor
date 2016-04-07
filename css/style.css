@@ -257,3 +257,9 @@ a:active {
 a:hover {
     color: #d0dd2b; text-decoration:none
 }
+
+.description {
+    font-size: x-small;
+    font-weight: 400;
+    text-align: left;
+}
