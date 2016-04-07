@@ -172,6 +172,32 @@ li.task {
     padding: 10px 6px 10px 6px;
 
     background-color: rgba(255, 255, 255, 0.70);
+    color: rgba(51, 51, 51, 0.91);
+}
+
+li.add {
+    margin-top: 60px;
+    border-color: rgb(103, 205, 220);
+    color: rgb(103, 205, 220);
+    text-align: center;
+    padding: 6px;
+
+}
+
+div.add h2:before {
+    content: "";
+    display: block;
+    background: url('../icons/add.png') no-repeat;
+    background-size: 34px auto;
+    width: 34px;
+    height: 34px;
+    float: left;
+    padding-right: 10px;
+}
+
+div.add {
+    width: auto;
+    display: inline-block;
 }
 
 ul.tasks {
@@ -188,10 +214,6 @@ li.cat_sport {
 
 .top_row {
     width: 100%;
-}
-
-.task_title {
-    color: rgba(51, 51, 51, 0.91);
 }
 
 .task_title h2 {
