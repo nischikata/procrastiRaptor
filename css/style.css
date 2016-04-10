@@ -184,6 +184,10 @@ li.add {
 
 }
 
+li.add:hover {
+    background-color: rgba(208, 221, 43, 0.50);
+}
+
 div.add h2:before {
     content: "";
     display: block;
