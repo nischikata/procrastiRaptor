@@ -1,0 +1,60 @@
+body {
+    background-color: #FFFFFF;
+}
+.shape {
+    margin: auto;
+}
+.one {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid rgba(103, 205, 220, 0.2);
+}
+.one:hover {
+    border-bottom: 5px solid deeppink;
+}
+.two {
+    border-bottom: 5px solid rgba(103, 205, 220, 0.4);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    height: 0;
+    width: 10px;
+}
+.two:hover {
+    border-bottom: 5px solid deeppink;
+}
+.three {
+    border-bottom: 5px solid rgba(103, 205, 220, 0.6);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    height: 0;
+    width: 20px;
+}
+.three:hover {
+    border-bottom: 5px solid deeppink;
+}
+
+.four {
+    border-bottom: 5px solid rgba(103, 205, 220, 0.8);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    height: 0;
+    width: 30px;
+}
+
+.four:hover {
+    border-bottom: 5px solid deeppink;
+}
+
+.five {
+    border-bottom: 5px solid rgb(103, 205, 220);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    height: 0;
+    width: 40px;
+}
+
+.five:hover {
+    border-bottom: 5px solid deeppink;
+}
