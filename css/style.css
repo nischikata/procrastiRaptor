@@ -317,7 +317,6 @@ a:hover {
     padding-left: 30px;
 }
 
-
 .difficulty {
     display: inline-block;
 }
@@ -367,3 +366,29 @@ a:hover {
 }
 
 /* Effort - Time */
+
+.effort {
+    display: inline-block;
+}
+
+.effort > div {
+    display: inline-block;
+}
+
+.effort > div > span {
+    font-weight: bold;
+    font-size: large;
+}
+
+.right {
+    text-align: right;
+}
+
+.invested {
+    border-right: solid 2px rgb(15, 115, 148);
+    padding-right: 5px;
+}
+
+.invested > span {
+    color: #67cddc;
+}
