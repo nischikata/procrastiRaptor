@@ -239,6 +239,7 @@ li.cat_sport {
 
 .bottom_row {
     display: none;
+    color: rgb(15, 115, 148);
 }
 
 .expanded {
@@ -267,3 +268,102 @@ a:hover {
     font-weight: 400;
     text-align: left;
 }
+
+
+/* Difficulty Pyramid */
+
+.one {
+    width: 7px;
+}
+
+.two {
+    width: 14px;
+}
+
+.three {
+    width: 21px;
+}
+
+.four {
+    width: 28px;
+}
+
+.five {
+    width: 35px;
+}
+
+.trapez {
+    margin: auto;
+    height: 1px;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(15, 115, 148);
+}
+
+.trapez:hover {
+    border-bottom-color: rgb(103, 205, 220);
+}
+
+.grey {
+    border-bottom-color: rgba(210, 210, 210, 0.70);
+}
+.grey:hover {
+    border-bottom-color: rgba(210, 210, 210, 0.70);
+}
+
+.bottom_row > div {
+    padding-left: 30px;
+}
+
+
+.difficulty {
+    display: inline-block;
+}
+
+/* Satisfaction icon */
+
+.satisfaction {
+    display: inline-block;
+}
+
+.satisfaction > div {
+    width: 30px;
+    height: 37px;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 0 auto;
+}
+
+.satisfaction > span {
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+.king {
+    background-image: url("../icons/emo_king.svg");
+}
+
+.glad {
+    background-image: url("../icons/emo_glad.svg") ;
+}
+
+.laughing {
+    background-image: url("../icons/emo_laughing.svg") ;
+}
+.indifferent {
+    background-image: url("../icons/emo_indifferent.svg") ;
+}
+
+.pirate {
+    background-image: url("../icons/emo_pirate.svg") ;
+}
+
+.wink {
+    background-image: url("../icons/emo_wink.svg") ;
+}
+
+/* Effort - Time */

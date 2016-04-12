@@ -111,7 +111,7 @@ body {
     width: 50px;
 }
 
-.shape1 {
+.trapez {
     margin: auto;
     border-left: 2px solid transparent;
     border-right: 2px solid transparent;
@@ -119,7 +119,7 @@ body {
 
 }
 
-.shape1:hover {
+.trapez:hover {
     border-bottom: 5px solid #6bf0ff;
 }
 
