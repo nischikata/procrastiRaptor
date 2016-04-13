@@ -175,6 +175,10 @@ li.task {
     color: rgba(51, 51, 51, 0.91);
 }
 
+li.task:hover {
+    background-color: rgba(239, 252, 48, 0.1);
+}
+
 li.add {
     margin-top: 60px;
     border-color: rgb(103, 205, 220);
@@ -185,7 +189,7 @@ li.add {
 }
 
 li.add:hover {
-    background-color: rgba(208, 221, 43, 0.50);
+    background-color: rgba(208, 221, 43, 0.40);
 }
 
 div.add h2:before {
