@@ -272,26 +272,6 @@ a:hover {
 
 /* Difficulty Pyramid */
 
-.one {
-    width: 7px;
-}
-
-.two {
-    width: 14px;
-}
-
-.three {
-    width: 21px;
-}
-
-.four {
-    width: 28px;
-}
-
-.five {
-    width: 35px;
-}
-
 .trapez {
     margin: auto;
     height: 1px;
@@ -304,6 +284,26 @@ a:hover {
 
 .trapez:hover {
     border-bottom-color: rgb(103, 205, 220);
+}
+
+.trapez_1 {
+    width: 7px;
+}
+
+.trapez_2 {
+    width: 14px;
+}
+
+.trapez_3 {
+    width: 21px;
+}
+
+.trapez_4 {
+    width: 28px;
+}
+
+.trapez_5 {
+    width: 35px;
 }
 
 .grey {
