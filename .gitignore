@@ -3,4 +3,7 @@
 *.iml
 out
 gen
+.DS_Store
+icons/.DS_Store
+bower_components
 

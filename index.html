@@ -5,6 +5,7 @@
     <title>ProcrastiRaptor - Welcome !</title>
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
 </head>
 <body>
 <nav>
@@ -31,7 +32,21 @@
             <div class="top_row">
                 <div class="due_in"><div>2d10m</div><div class="description">due in</div></div><div class="task_title"><h2>html & css code for HUE mockup procrastiRaptor</h2></div>
             </div>
-            <div class="bottom_row">predictions: difficulty, satisfaction, effort</div>
+            <div class="bottom_row">
+                <div class="difficulty">
+                    <div class="trapez trapez_1 grey"></div>
+                    <div class="trapez trapez_2 grey"></div>
+                    <div class="trapez trapez_3"></div>
+                    <div class="trapez trapez_4"></div>
+                    <div class="trapez trapez_5"></div>
+                    <div class="description">difficulty</div>
+                </div>
+                <div class="satisfaction"><div class="king"></div><span class="description">satisfaction</span></div>
+                <div class="effort">
+                    <div class="invested right"><span>5d</span> <div class="description right">invested</div> </div>
+                    <div class="predicted"><span>2d 3h</span> <div class="description">predicted</div> </div>
+                </div>
+            </div>
         </li>
 
 
@@ -39,14 +54,42 @@
             <div class="top_row">
                 <div class="due_in"><div>7w1d</div><div class="description">due in</div></div><div class="task_title"><h2>find b-day present for husband</h2></div>
             </div>
-            <div class="bottom_row expanded">predictions: difficulty, satisfaction, effort</div>
+            <div class="bottom_row">
+                <div class="difficulty">
+                    <div class="trapez trapez_1"></div>
+                    <div class="trapez trapez_2"></div>
+                    <div class="trapez trapez_3"></div>
+                    <div class="trapez trapez_4"></div>
+                    <div class="trapez trapez_5"></div>
+                    <div class="description">difficulty</div>
+                </div>
+                <div class="satisfaction"><div class="glad"></div><span class="description">satisfaction</span></div>
+                <div class="effort">
+                    <div class="invested right"><span>0</span> <div class="description right">invested</div> </div>
+                    <div class="predicted"><span>1d</span> <div class="description">predicted</div> </div>
+                </div>
+            </div>
         </li>
 
         <li class="task">
             <div class="top_row">
                 <div class="due_in"><div>12w</div><div class="description">due in</div></div><div class="task_title"><h2>paint kitchen</h2></div>
             </div>
-            <div class="bottom_row">predictions: difficulty, satisfaction, effort</div>
+            <div class="bottom_row">
+                <div class="difficulty">
+                    <div class="trapez trapez_1 grey"></div>
+                    <div class="trapez trapez_2 grey"></div>
+                    <div class="trapez trapez_3 grey"></div>
+                    <div class="trapez trapez_4 grey"></div>
+                    <div class="trapez trapez_5"></div>
+                    <div class="description">difficulty</div>
+                </div>
+                <div class="satisfaction"><div class="indifferent"></div><span class="description">satisfaction</span></div>
+                <div class="effort">
+                    <div class="invested right"><span>35min</span> <div class="description right">invested</div> </div>
+                    <div class="predicted"><span>5h</span> <div class="description">predicted</div> </div>
+                </div>
+            </div>
         </li>
 
     <a href="add_task.php">
@@ -59,5 +102,8 @@
 
 </div>
 
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="js/tasklist.js"></script>
 </body>
 </html>
