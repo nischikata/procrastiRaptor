@@ -1,7 +1,7 @@
 # procrastiRaptor
 HUEE Anti Procrastination App
 
-####install separately:
+####install separately (git-ignored):
 * __jquery via bower__ (in project root dir) ``` bower install jquery```
 
 
