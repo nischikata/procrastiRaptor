@@ -18,7 +18,8 @@ ul {
 }
 
 main {
-    margin-bottom: 85px;
+    margin-bottom: 85px; /* footer sapce! */
+    clear: both;
 }
 
 footer {
@@ -74,7 +75,7 @@ nav ul li:hover:not(.active) {
 }
 
 header {
-    margin-top: 50px;
+    margin-top: 59px;
     display: table;
     min-width: 400px;
     float: right;
@@ -116,7 +117,7 @@ header {
 }
 
 #task_suggestions {
-    clear: both;
+
 }
 
 #home {
