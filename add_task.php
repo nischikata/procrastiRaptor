@@ -10,15 +10,28 @@
 <nav>
     <ul>
         <a href="index.html"><li id="home"></li></a>
-        <a href="tasklist.html"><li id="tasklist"  class="active"></li></a>
+        <a href="tasklist.html"><li id="tasklist"></li></a>
         <a href="calendar.php"><li id="calendar"></li></a>
         <a href="stats.php"><li id="stats"></li></a>
         <a href="user.php"><li style="float:right" id="user"></li></a>
     </ul>
 </nav>
 
-<header> add task
+<header>
 </header>
+<main>
+    <form>
+        <h2>Add a task to your TO DO list</h2>
+        <label for="title">Title</label> <input type="text" id="title">
+        <label for="categories">Category</label> <select name="categories">
+            <option label=" "></option>
+            <option value="health">Health</option>
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="home">Home</option>
+        </select>
+    </form>
+</main>
 
 
 

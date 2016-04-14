@@ -1,0 +1,79 @@
+.onoffswitch {
+    position: relative; width: 80px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border-radius: 50px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 16px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 12px;
+    background-color: rgb(103, 205, 220); color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 12px;
+    background-color: rgba(223, 231, 184, 1); color: #8c8c8c;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 24px; margin: 3px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 46px;
+    border: 2px solid #FFFFFF; border-radius: 50px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+
+table {
+    margin: 0;
+    font-size: 16px; font-family: Trebuchet, Arial, sans-serif;
+    color: #333333;
+    border-collapse: collapse;
+    width: 100%;
+    font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
+}
+
+
+tr {
+    margin: 4px;
+    padding: 0;
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(223, 231, 184, 0.4);
+}
+
+
+td {
+    padding: 8px 4px 8px 16px;
+    border-bottom: 1px solid rgba(223, 231, 184, 0.9);;
+    border-top: 1px solid rgba(223, 231, 184, 0.9);;
+}
+
+td:nth-child(odd) {
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 1.4em;
+    width: 400px;
+    white-space: pre-wrap;
+}
