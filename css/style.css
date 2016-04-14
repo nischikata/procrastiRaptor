@@ -17,12 +17,29 @@ ul {
     margin: 0;
 }
 
+main {
+    margin-bottom: 85px;
+}
+
+footer {
+    position:fixed;
+    bottom:0px;
+    margin:auto;
+    z-index:100000;
+    width:100%;
+}
+
 nav {
     background: rgb(103, 205, 220);
     border-bottom: solid 4px rgba(14, 100, 145, 0.5);
     height: 45px;
     padding-top: 10px;
     min-width: 400px;
+    position:fixed;
+    top:0px;
+    margin:auto;
+    z-index:100000;
+    width:100%;
 }
 
 nav ul {
@@ -57,6 +74,7 @@ nav ul li:hover:not(.active) {
 }
 
 header {
+    margin-top: 50px;
     display: table;
     min-width: 400px;
     float: right;
@@ -161,7 +179,7 @@ header {
     background-image: url("../icons/user_hover.png");
 }
 
-li.task {
+.task {
     border: solid;
     border-radius: 4px;
     border-width: 3px;
@@ -179,17 +197,26 @@ li.task:hover {
     background-color: rgba(239, 252, 48, 0.1);
 }
 
-li.add {
-    margin-top: 60px;
+
+div.add {
+    background-color: #fcfdf2;
     border-color: rgb(103, 205, 220);
     color: rgb(103, 205, 220);
     text-align: center;
     padding: 6px;
+    bottom:0;
+    line-height: 2em;
+    margin: 0px 7px 10px 13px;
+
+
+    -moz-box-shadow: 0px 0px 30px 10px rgba(223, 231, 184, 0.7);
+    -webkit-box-shadow: 0px 0px 30px 10px rgba(223, 231, 184, 0.7);
+    box-shadow: 0px 0px 30px 10px rgba(223, 231, 184, 0.7);
 
 }
 
-li.add:hover {
-    background-color: rgba(208, 221, 43, 0.40);
+div.add:hover {
+    background-color: #f5f9c3;
 }
 
 div.add h2:before {
@@ -201,11 +228,6 @@ div.add h2:before {
     height: 34px;
     float: left;
     padding-right: 10px;
-}
-
-div.add {
-    width: auto;
-    display: inline-block;
 }
 
 ul.tasks {
@@ -239,6 +261,14 @@ li.cat_sport {
     padding-left: 15px;
     font-weight: bold;
 
+}
+
+.overdue {
+    color: #dc2726;
+}
+
+.due_in > .description {
+    text-align: right;
 }
 
 .bottom_row {

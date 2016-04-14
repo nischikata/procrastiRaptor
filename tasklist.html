@@ -20,10 +20,30 @@
 <header><h1></h1>
 </header>
 
-<div id="task_suggestions">
+<main><div id="task_suggestions">
 
 
     <ul class="tasks">
+        <li class="task cat_sport">
+            <div class="top_row">
+                <div class="due_in overdue"><div>-15h</div><div class="description">due in</div></div><div class="task_title"><h2>do 20 push-ups</h2></div>
+            </div>
+            <div class="bottom_row">
+                <div class="difficulty">
+                    <div class="trapez trapez_1 grey"></div>
+                    <div class="trapez trapez_2 grey"></div>
+                    <div class="trapez trapez_3"></div>
+                    <div class="trapez trapez_4"></div>
+                    <div class="trapez trapez_5"></div>
+                    <div class="description">difficulty</div>
+                </div>
+                <div class="satisfaction"><div class="laughing"></div><span class="description">satisfaction</span></div>
+                <div class="effort">
+                    <div class="invested right"><span>1</span> <div class="description right">invested</div> </div>
+                    <div class="predicted"><span>8m</span> <div class="description">predicted</div> </div>
+                </div>
+            </div>
+        </li>
         <li class="task">
             <div class="top_row">
                 <div class="due_in"><div>1h</div><div class="description">due in</div></div><div class="task_title"><h2>feed cat</h2></div>
@@ -130,18 +150,18 @@
                 </div>
             </div>
         </li>
-
-
-
-        <a href="add_task.php">
-            <li class="task add">
-                <div class="task_title add"><h2>add</h2></div>
-            </li>
-        </a>
-
     </ul>
 
 </div>
+</main>
+<footer>
+
+    <a href="add_task.php">
+        <div class=" task task_title add">
+            <h2>add</h2>
+        </div>
+    </a>
+</footer>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="js/tasklist.js"></script>
