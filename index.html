@@ -10,11 +10,11 @@
 <body>
 <nav>
     <ul>
-        <li class="active" id="home"><div ></div></li>
-        <li id="tasklist"></li>
-        <li id="calendar"></li>
-        <li id="stats"><div ></div></li>
-        <li style="float:right" id="user"></li>
+        <a href="index.html"><li class="active" id="home"></li></a>
+        <a href="tasklist.html"><li id="tasklist"></li></a>
+        <a href="calendar.php"><li id="calendar"></li></a>
+        <a href="stats.php"><li id="stats"></li></a>
+        <a href="user.php"><li style="float:right" id="user"></li></a>
     </ul>
 </nav>
 
@@ -22,7 +22,7 @@
     <p>Do you have <a href="#">15 minutes</a>? Check out <a href="#">these awesome tasks</a>: </p></div></div>
 </header>
 
-<div id="task_suggestions">
+<main><div id="task_suggestions">
 
 
     <ul class="tasks">
@@ -92,14 +92,15 @@
             </div>
         </li>
 
-
+    <a href="add_task.php">
         <li class="task add">
            <div class="task_title add"><h2>add</h2></div>
-
         </li>
+    </a>
+
     </ul>
 
-</div>
+</div></main>
 
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
