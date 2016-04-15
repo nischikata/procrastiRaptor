@@ -30,10 +30,23 @@
             <option value="school">School</option>
             <option value="home">Home</option>
         </select>
+        <label for="duedatetime">Due</label><input type="datetime" id="duedatetime" name="duedatetime">
+        <label for="pdifficulty">Predicted difficulty</label><input type="range">
+        <label for="psatisfaction">Predicted satisfaction</label><select name="psatisfaction" id="psatisfaction">
+            <option>bla</option>
+        </select>
+        <label for="duration">Predicted effort in time</label>
+        <input type="text" size="10" maxlength="10" placeholder = '1d 10h 5m' class="duration"/>
+        <label for="priority">Priority</label><select id="priority">
+            <option>A - High Priority</option>
+            <option>B - Medium Priority</option>
+            <option>C - Low Priority</option>
+        </select>
     </form>
 </main>
 
 
-
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="js/form.js"></script>
 </body>
 </html>
