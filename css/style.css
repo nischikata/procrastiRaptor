@@ -5,6 +5,10 @@ body {
     font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
 }
 
+html, body {
+    overflow-y: visible;
+}
+
 h1 {
     font-size: 1.5em;
 }
@@ -31,6 +35,7 @@ footer {
     width:100%;
 }
 
+/* NAVIGATION */
 nav {
     background: rgb(103, 205, 220);
     border-bottom: solid 4px rgba(14, 100, 145, 0.5);
@@ -75,14 +80,42 @@ nav ul li:hover:not(.active) {
     height: 100%;
 }
 
-header {
+/* VIEWS */
+.view {
+    margin: 0;
     margin-top: 59px;
+    padding: 0;
+}
+
+#start_view {
+    display: block;
+}
+
+#list_view {
+    display: none;
+}
+
+#calendar_view {
+    display: none;
+}
+#stats_view {
+    display: none;
+}
+#preferences_view {
+    display: none;
+}
+
+#add_task_view {
+    display: none;
+}
+
+header {
     display: table;
     min-width: 400px;
     float: right;
 }
 
-#bubble {
+.bubble {
     padding-right: 160px;
     background-image: url("../img/raptor_180deg.png");
     background-size: 130px auto;
@@ -91,11 +124,11 @@ header {
     min-height: 195px;
 }
 
-#filler {
+.filler {
     height: 20px;
 }
 
-#greeting {
+.greeting {
     color: #333333;
     padding: 10px;
 
@@ -105,7 +138,7 @@ header {
     margin-bottom: 10px;
 }
 
-#greeting:before { /* this adds the triangle to the speech bubble */
+.greeting:before { /* this adds the triangle to the speech bubble */
     position: absolute;
     display: inline-block;
     border-top: 15px solid transparent;
@@ -115,10 +148,6 @@ header {
     right: -25px;
     top: 25%;
     content: '';
-}
-
-#task_suggestions {
-
 }
 
 #home {

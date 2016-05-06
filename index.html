@@ -4,107 +4,373 @@
     <meta charset="UTF-8">
     <title>ProcrastiRaptor - Welcome !</title>
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
+    <link href="css/form.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <nav>
     <ul>
-        <a href="index.html"><li class="active" id="home"></li></a>
-        <a href="tasklist.html"><li id="tasklist"></li></a>
-        <a href="calendar.php"><li id="calendar"></li></a>
-        <a href="stats.php"><li id="stats"></li></a>
-        <a href="user.php"><li style="float:right" id="user"></li></a>
+        <li class="active" id="home" data-view="start_view"></li>
+        <li id="tasklist" data-view="list_view"></li>
+        <li id="calendar" data-view="calendar_view"></li>
+        <li id="stats" data-view="stats_view"></li>
+        <li style="float:right" id="user" data-view="preferences_view"></li>
     </ul>
 </nav>
 
-<header><div id="bubble"><div id="filler"></div><div id="greeting"><h1>Hi-Diddily-Ho Champ!</h1>
-    <p>Do you have <a href="#">15 minutes</a>? Check out <a href="#">these awesome tasks</a>: </p></div></div>
-</header>
 
-<main><div id="task_suggestions">
+<div id="start_view" class="view">
+    <header><div class="bubble"><div class="filler"></div><div class="greeting"><h1>Hi-Diddily-Ho Champ!</h1>
+        <p>Do you have <a href="#">15 minutes</a>? Check out <a href="#">these awesome tasks</a>: </p></div></div>
+    </header>
 
+    <main>
+        <ul class="tasks">
 
-    <ul class="tasks">
-
-
-        <li class="task cat_work">
-            <div class="top_row">
-                <div class="due_in"><div>2d10m</div><div class="description">due in</div></div><div class="task_title"><h2>html & css code for HUE mockup procrastiRaptor</h2></div>
-            </div>
-            <div class="bottom_row">
-                <div class="difficulty">
-                    <div class="trapez trapez_1 grey"></div>
-                    <div class="trapez trapez_2 grey"></div>
-                    <div class="trapez trapez_3"></div>
-                    <div class="trapez trapez_4"></div>
-                    <div class="trapez trapez_5"></div>
-                    <div class="description">difficulty</div>
+            <li class="task cat_work">
+                <div class="top_row">
+                    <div class="due_in"><div>2d10m</div><div class="description">due in</div></div><div class="task_title"><h2>html & css code for HUE mockup procrastiRaptor</h2></div>
                 </div>
-                <div class="satisfaction"><div class="king"></div><span class="description">satisfaction</span></div>
-                <div class="effort">
-                    <div class="invested right"><span>5d</span> <div class="description right">invested</div> </div>
-                    <div class="predicted"><span>2d 3h</span> <div class="description">predicted</div> </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2 grey"></div>
+                        <div class="trapez trapez_3"></div>
+                        <div class="trapez trapez_4"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="king"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>5d</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>2d 3h</span> <div class="description">predicted</div> </div>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
 
-        <li class="task cat_sport">
-            <div class="top_row">
-                <div class="due_in"><div>7w1d</div><div class="description">due in</div></div><div class="task_title"><h2>find b-day present for husband</h2></div>
-            </div>
-            <div class="bottom_row">
-                <div class="difficulty">
-                    <div class="trapez trapez_1"></div>
-                    <div class="trapez trapez_2"></div>
-                    <div class="trapez trapez_3"></div>
-                    <div class="trapez trapez_4"></div>
-                    <div class="trapez trapez_5"></div>
-                    <div class="description">difficulty</div>
+            <li class="task cat_sport">
+                <div class="top_row">
+                    <div class="due_in"><div>7w1d</div><div class="description">due in</div></div><div class="task_title"><h2>find b-day present for husband</h2></div>
                 </div>
-                <div class="satisfaction"><div class="glad"></div><span class="description">satisfaction</span></div>
-                <div class="effort">
-                    <div class="invested right"><span>0</span> <div class="description right">invested</div> </div>
-                    <div class="predicted"><span>1d</span> <div class="description">predicted</div> </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1"></div>
+                        <div class="trapez trapez_2"></div>
+                        <div class="trapez trapez_3"></div>
+                        <div class="trapez trapez_4"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="glad"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>0</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>1d</span> <div class="description">predicted</div> </div>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
-        <li class="task">
-            <div class="top_row">
-                <div class="due_in"><div>12w</div><div class="description">due in</div></div><div class="task_title"><h2>paint kitchen</h2></div>
-            </div>
-            <div class="bottom_row">
-                <div class="difficulty">
-                    <div class="trapez trapez_1 grey"></div>
-                    <div class="trapez trapez_2 grey"></div>
-                    <div class="trapez trapez_3 grey"></div>
-                    <div class="trapez trapez_4 grey"></div>
-                    <div class="trapez trapez_5"></div>
-                    <div class="description">difficulty</div>
+            <li class="task">
+                <div class="top_row">
+                    <div class="due_in"><div>12w</div><div class="description">due in</div></div><div class="task_title"><h2>paint kitchen</h2></div>
                 </div>
-                <div class="satisfaction"><div class="indifferent"></div><span class="description">satisfaction</span></div>
-                <div class="effort">
-                    <div class="invested right"><span>35min</span> <div class="description right">invested</div> </div>
-                    <div class="predicted"><span>5h</span> <div class="description">predicted</div> </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2 grey"></div>
+                        <div class="trapez trapez_3 grey"></div>
+                        <div class="trapez trapez_4 grey"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="indifferent"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>35min</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>5h</span> <div class="description">predicted</div> </div>
+                    </div>
                 </div>
-            </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
+
+
+    </main>
+</div>
+
+
+
+<div id="list_view" class="view">
+    <header><h1></h1>
+    </header>
+
+    <main>
+
+
+        <ul class="tasks">
+            <li class="task cat_sport">
+                <div class="top_row">
+                    <div class="due_in overdue"><div>-15h</div><div class="description">due in</div></div><div class="task_title"><h2>do 20 push-ups</h2></div>
+                </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2 grey"></div>
+                        <div class="trapez trapez_3"></div>
+                        <div class="trapez trapez_4"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="laughing"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>1</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>8m</span> <div class="description">predicted</div> </div>
+                    </div>
+                </div>
+            </li>
+            <li class="task">
+                <div class="top_row">
+                    <div class="due_in"><div>1h</div><div class="description">due in</div></div><div class="task_title"><h2>feed cat</h2></div>
+                </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2 grey"></div>
+                        <div class="trapez trapez_3 grey"></div>
+                        <div class="trapez trapez_4 grey"></div>
+                        <div class="trapez trapez_5 grey"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="indifferent"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>0</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>2m</span> <div class="description">predicted</div> </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="task cat_work">
+                <div class="top_row">
+                    <div class="due_in"><div>1h</div><div class="description">due in</div></div><div class="task_title"><h2>write paper</h2></div>
+                </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2"></div>
+                        <div class="trapez trapez_3"></div>
+                        <div class="trapez trapez_4"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="pirate"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>35min</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>5h</span> <div class="description">predicted</div> </div>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="task cat_work">
+                <div class="top_row">
+                    <div class="due_in"><div>2d10m</div><div class="description">due in</div></div><div class="task_title"><h2>html & css code for HUE mockup procrastiRaptor</h2></div>
+                </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2 grey"></div>
+                        <div class="trapez trapez_3"></div>
+                        <div class="trapez trapez_4"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="king"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>5d</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>2d 3h</span> <div class="description">predicted</div> </div>
+                    </div>
+                </div>
+            </li>
+
+
+            <li class="task cat_sport">
+                <div class="top_row">
+                    <div class="due_in"><div>7w1d</div><div class="description">due in</div></div><div class="task_title"><h2>find b-day present for husband</h2></div>
+                </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1"></div>
+                        <div class="trapez trapez_2"></div>
+                        <div class="trapez trapez_3"></div>
+                        <div class="trapez trapez_4"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="glad"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>0</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>1d</span> <div class="description">predicted</div> </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="task">
+                <div class="top_row">
+                    <div class="due_in"><div>12w</div><div class="description">due in</div></div><div class="task_title"><h2>paint kitchen</h2></div>
+                </div>
+                <div class="bottom_row">
+                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2 grey"></div>
+                        <div class="trapez trapez_3 grey"></div>
+                        <div class="trapez trapez_4 grey"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                    <div class="satisfaction"><div class="indifferent"></div><span class="description">satisfaction</span></div>
+                    <div class="effort">
+                        <div class="invested right"><span>35min</span> <div class="description right">invested</div> </div>
+                        <div class="predicted"><span>5h</span> <div class="description">predicted</div> </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </main>
 
 </div>
-</main>
+
+
+
+<div id="calendar_view" class="view">
+    <header><h1>Calendar</h1></header><main><p>nothing to show yet</p></main>
+</div>
+
+
+
+<div id="stats_view" class="view">
+    <header><h1>Stats</h1>
+    </header>
+
+    <main style="margin-left: 14px;">
+        <h3>Time management</h3>
+        <figure id="pie-chart-3colors"><svg width="100" height="100"><circle r="24.5" cx="50" cy="50" fill="none" stroke="#67cddc" stroke-width="50" stroke-dasharray="158 158" /><circle r="25" cx="50" cy="50" fill="none" stroke="white" stroke-width="50" stroke-dasharray="32 158" /></svg></figure>
+        <div><span style="background-color: #67cddc; width: 5px; height: 5px;"> &nbsp; </span> &nbsp; finished on time</div>
+        <div><span style="background-color: white; width: 5px; height: 5px;"> &nbsp; </span> &nbsp; finished late</div>
+    </main>
+</div>
+
+
+
+<div id="preferences_view" class="view">
+    <header><div class="bubble"><div class="filler"></div><div class="greeting">
+        <h1>What's up <a href="#">Michonne</a>?</h1>
+        <p>Do you want to change your <a href="#">screen name</a>, <a href="#">email-address</a> or <a href="#">password</a>?</p>
+        <p>Check out the settings below to adjust the app experience to your preferences.</p>
+    </div></div>
+    </header>
+
+    <main>
+        <table>
+            <tr>
+                <td>Daily TODO list via e-mail</td><td>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="dailymail" class="onoffswitch-checkbox" id="dailymail" checked>
+                    <label class="onoffswitch-label" for="dailymail">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+
+            </td>
+            </tr>
+            <tr>
+                <td>Notifications for upcoming high priority tasks</td><td>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="notify" class="onoffswitch-checkbox" id="notify">
+                    <label class="onoffswitch-label" for="notify">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </td>
+            </tr>
+            <tr>
+                <td>Sound</td><td>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="sound" class="onoffswitch-checkbox" id="sound">
+                    <label class="onoffswitch-label" for="sound">
+                        <span class="onoffswitch-inner"></span>
+                        <span class="onoffswitch-switch"></span>
+                    </label>
+                </div>
+            </td>
+            </tr>
+            <tr>
+                <td>Due time</td><td>display due date | display remaining time</td>
+            </tr>
+            <tr>
+                <td>Default snooze time</td><td><a href="#">10 minutes</a></td>
+            </tr>
+            <tr>
+                <td>Delete completed task after</td><td>1 day | 1 week | 1 month | 2 months | never</td>
+            </tr>
+            <tr>
+                <td>Delete overdue task after</td><td>1 week | 1 month | 2 months | never</td>
+            </tr>
+            <tr>
+                <td>Language</td><td>English | Deutsch | Portuguese </td>
+            </tr>
+
+        </table>
+    </main>
+</div>
+
+
+
+<div id="add_task_view" class="view">
+    <header>
+        <h2>Add a task to your TO DO list</h2>
+    </header>
+    <main>
+        <form>
+
+            <label for="f_title">Title</label> <input type="text" id="f_title">
+            <label for="f_categories">Category</label> <select id="f_categories">
+            <option label=" "></option>
+            <option value="health">Health</option>
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="home">Home</option>
+        </select>
+            <label for="f_duedatetime">Due</label><input type="datetime" id="f_duedatetime" name="f_duedatetime">
+            <label for="f_pdifficulty">Predicted difficulty</label><input type="range" id="f_pdifficulty">
+            <label for="f_psatisfaction">Predicted satisfaction</label><select name="f_psatisfaction" id="f_psatisfaction">
+            <option>bla</option>
+        </select>
+            <label for="f_duration">Predicted effort in time</label>
+            <input type="text" size="10" maxlength="10" placeholder = '1d 10h 5m' id="f_duration" class="duration"/>
+            <label for="f_priority">Priority</label><select id="f_priority">
+            <option>A - High Priority</option>
+            <option>B - Medium Priority</option>
+            <option>C - Low Priority</option>
+        </select>
+        </form>
+    </main>
+</div>
+
+
+
+
 <footer>
 
-    <a href="add_task.php">
-        <div class=" task task_title add">
+
+        <div class="task task_title add" data-view="add_task_view">
             <h2>add</h2>
         </div>
-    </a>
+
 </footer>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="js/tasklist.js"></script>
+<script type="text/javascript" src="js/views.js"></script>
+<script type="text/javascript" src="js/form.js"></script>
 </body>
 </html>
