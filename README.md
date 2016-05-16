@@ -8,3 +8,4 @@ HUEE Anti Procrastination App
 ####Tools & stuff used:
 * SVG Optimization: [SVGO] (https://github.com/svg/svgo)
 * Icons from: [The Noun Project](https://thenounproject.com/)
+* [Git Flow] (http://danielkummer.github.io/git-flow-cheatsheet/)
