@@ -202,12 +202,27 @@ function displayTaskList(store) {
             req = store.get(cursor.key);
             req.onsuccess = function (evt) {
                 var value = evt.target.result;
-                var list_item = $('<li>' +
-                '[' + cursor.key + '] ' +
-                value.title +
-                '</li>');
-                if (value.category != null)
-                    list_item.append(' - ' + value.category);
+                var list_item = $('<li class="task"></li>');
+                if (value.category != "")
+                    list_item.addClass(value.category);
+                list_item.data("key", cursor.key);
+
+                // TOP ROW
+
+                var top_row = $('<div class="top_row"><div class="due_in">' +
+                '<div>15h</div><div class="description">due in</div></div>' +
+                '<div class="task_title"><h2>' + value.title +
+                '</h2></div></div>');
+                list_item.append(top_row);
+
+                // BOTTOM ROW
+                var bottom_row = $('<div class="bottom_row"><div class="difficulty"><div class="trapez trapez_1 grey"></div><div class="trapez trapez_2 grey"></div><div class="trapez trapez_3"></div><div class="trapez trapez_4"></div><div class="trapez trapez_5"></div><div class="description">difficulty</div></div><div class="satisfaction"><div class="laughing"></div><span class="description">satisfaction</span></div><div class="effort"><div class="invested right"><span>1</span><div class="description right">invested</div></div><div class="predicted"><span>8m</span><div class="description">predicted</div></div></div></div>');
+
+                list_item.append(bottom_row);
+                list_item.click(function(){ // expand / hide predictions
+                    $(this).find(".bottom_row").toggle(500);
+                });
+
 
                 ul_tasks.append(list_item);
             };
