@@ -66,8 +66,8 @@ tr:nth-child(odd) {
 
 td {
     padding: 8px 4px 8px 16px;
-    border-bottom: 1px solid rgba(223, 231, 184, 0.9);;
-    border-top: 1px solid rgba(223, 231, 184, 0.9);;
+    border-bottom: 1px solid rgba(223, 231, 184, 0.9);
+    border-top: 1px solid rgba(223, 231, 184, 0.9);
 }
 
 td:nth-child(odd) {
@@ -76,4 +76,37 @@ td:nth-child(odd) {
     line-height: 1.2em;
     width: 400px;
     white-space: pre-wrap;
+}
+
+
+#add-task-button {
+
+    box-shadow: none;
+    display: inline-block;
+    border: solid;
+    border-radius: 8px;
+    border-width: 3px;
+    font-size: 14px; font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
+}
+
+#form_messages {
+    height: 35px;
+    color: white;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.form_msg {
+    margin: 6px;
+    padding: 6px;
+    display: none;
+    border-radius: 3px;
+}
+
+#form_success {
+     background-color: #40dc62;
+ }
+
+#form_fail {
+    background-color: #dc3b2a;
 }

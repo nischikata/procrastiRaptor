@@ -60,14 +60,14 @@ $(function() {
         var field = $(this);
         var sd = field.val();
         seconds = parseDuration(sd);
-        //TODO: write seconds into data attribute, t
         if (sd !== '' && seconds === 0) {
             field.css('background-color','red');
             field.focus();
-            //TODO: mark as invalid or set data attribute to 0
+            $('#f_duration').data("seconds", 0);
         } else {
             field.val(toDurationString(seconds));
             field.css('background-color', 'green');
+            $('#f_duration').data("seconds", seconds);
         }
     });
 });

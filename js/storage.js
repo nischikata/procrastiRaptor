@@ -30,12 +30,10 @@ function openDb() {
 
     req.onupgradeneeded = function (evt) {
         console.log("openDb.onupgradeneeded");
-        var store = evt.currentTarget.result.createObjectStore(
-            DB_STORE_NAME, { keyPath: 'id', autoIncrement: true });
+        var store = evt.currentTarget.result.createObjectStore(DB_STORE_NAME, { keyPath: 'id', autoIncrement: true });
 
         store.createIndex('title', 'title', { unique: false });
         store.createIndex('category', 'category', { unique: false });
-        store.createIndex('done', 'done', { unique: false });
         store.createIndex('p_time_effort', 'p_time_effort', { unique: false });
     };
 }
@@ -62,7 +60,69 @@ function getTask(key, store, success_callback) {
     };
 }
 
-function addTask(title, duedate, difficulty, satisfaction, time_effort, priority){}
+function addTask(title, notes, category, duedate, difficulty, satisfaction, time_effort, priority){
+
+
+    console.log("add Task arguments:", arguments);
+
+    var task = { title: title, notes: notes, category: category,
+        p_difficulty:  difficulty, p_satisfaction:  satisfaction, p_time_effort: time_effort, priority: priority, ranking: null,
+        a_difficulty: null, a_satisfaction: null, a_time_effort: null, done: true };
+
+    var store = getObjectStore(DB_STORE_NAME, 'readwrite');
+    var req;
+
+    try {
+        req = store.add(task);
+    } catch (error) {
+        console.log("Could not add task to list, some error occurred.")
+    }
+
+    req.onsuccess = function (event) {
+        console.log("task inserted into db successfully.");
+
+        //reset form
+        document.getElementById('form_add_task').reset();
+        var duration_field = $("#f_duration");
+        duration_field.val("");
+        duration_field.data("seconds", 0);
+        duration_field.css('background-color', 'white');
+
+        displayActionSuccess("New Task added successfully.")
+    }
+
+    req.onerror = function() {
+        console.error("error: TASK could not be added to db.", this.error);
+
+        displayActionFailure(this.error);
+    };
+}
+
+function displayActionFailure(message) {
+    $("#form_fail").text(message);
+    $("#form_fail").show().delay(7000).queue(function(n) {
+        $(this).hide(); n();
+    });
+}
+
+function displayActionSuccess(message) {
+    $("#form_success").text(message);
+    $("#form_success").show().delay(7000).queue(function(n) {
+        $(this).hide(); n();
+    });
+}
+
+function clearObjectStore(store_name) {
+    var store = getObjectStore(DB_STORE_NAME, 'readwrite');
+    var req = store.clear();
+    req.onsuccess = function(evt) {
+        displayActionSuccess("Store cleared");
+    };
+    req.onerror = function (evt) {
+        console.error("clearObjectStore:", evt.target.errorCode);
+        displayActionFailure(this.error);
+    };
+}
 
 function updateTask(){}
 
@@ -72,37 +132,43 @@ function removeTask(){}
 
 function addEventListeners(){
 
-    $('#add-button').click(function(evt) {
+    $('#add-task-button').click(function(evt) {
         console.log("add ...");
         var title = $('#f_title').val();
         var category = $('#f_category').val();
         console.log("category? " + category);
         if (!category) {
-            //TODO test what value no selection returns !
+            console.log("no category selected");
         }
 
         var date = $('#f_duedatetime').val();
-        // TODO: check what the value returns? Date object?
+        console.log("date: " + date);
 
         var difficulty = $('#f_pdifficulty').val();
+        console.log("diff: " + difficulty);
 
-
-        var satisfaction = $('#f_psatisfaction').val();
+        var satisfaction = $( "input:radio[name=f_psatisfaction]:checked" ).val();
         if (!title) {
             console.log("Required field(s) missing");
+            displayActionFailure("Required field(s) missing");
             return;
         }
 
-        var time_effort = $('#f_duration').data("seconds"); //TODO: read time from data attribute
+        var time_effort = $('#f_duration').data("seconds");
+        console.log("time duration: " + time_effort);
+
         var priority = $('#f_priority').val();
 
         //TODO add rest + validation
 
-        //TODO time needs to be converted to minutes
+        var notes = "none";
 
-        addTask(title, date, difficulty, satisfaction, time_effort, priority);
+        addTask(title, notes, category, date, difficulty, satisfaction, time_effort, priority);
 
     });
-    //
+
 
 }
+
+openDb();
+addEventListeners();

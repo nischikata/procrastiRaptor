@@ -328,9 +328,17 @@
 <div id="add_task_view" class="view">
     <header>
         <h2>Add a task to your TO DO list</h2>
+
     </header>
+
+
+
     <main>
-        <form>
+        <div id="form_messages">
+            <span id="form_success" class="form_msg">Success!</span>
+            <span id="form_fail" class="form_msg">Error!</span>
+        </div>
+        <form id="form_add_task">
 
             <label for="f_title">Title</label> <input type="text" id="f_title">
             <label for="f_category">Category</label> <select id="f_category">
@@ -342,16 +350,17 @@
         </select>
             <label for="f_duedatetime">Due</label><input type="datetime" id="f_duedatetime" name="f_duedatetime">
             <label for="f_pdifficulty">Predicted difficulty</label><input type="range" id="f_pdifficulty">
-            <label for="f_psatisfaction">Predicted satisfaction</label><select name="f_psatisfaction" id="f_psatisfaction">
-            <option>bla</option>
-        </select>
+            <label>Predicted satisfaction</label>
+                <input type="radio" name="f_psatisfaction" value="1" checked>indifferent</input>
+                <input type="radio" name="f_psatisfaction" value="2">happy</input>
             <label for="f_duration">Predicted effort in time</label>
             <input type="text" size="10" maxlength="10" placeholder = '1d 10h 5m' id="f_duration" data-seconds="0" class="duration"/>
             <label for="f_priority">Priority</label><select id="f_priority">
-            <option>A - High Priority</option>
-            <option>B - Medium Priority</option>
-            <option>C - Low Priority</option>
+            <option value="A">A - High Priority</option>
+            <option value="B">B - Medium Priority</option>
+            <option value="C">C - Low Priority</option>
         </select>
+            <div id="add-task-button" class="add" data-view="add_task_view">add task</div>
         </form>
     </main>
 </div>
