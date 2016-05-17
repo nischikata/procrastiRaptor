@@ -90,10 +90,11 @@ td:nth-child(odd) {
 }
 
 #form_messages {
-    height: 35px;
+    min-height: 35px;
     color: white;
     font-weight: 800;
     font-size: 18px;
+    clear: both;
 }
 
 .form_msg {
@@ -108,5 +109,5 @@ td:nth-child(odd) {
  }
 
 #form_fail {
-    background-color: #dc3b2a;
+    background-color: rgba(220, 52, 36, 0.62);
 }

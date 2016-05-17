@@ -61,12 +61,12 @@ $(function() {
         var sd = field.val();
         seconds = parseDuration(sd);
         if (sd !== '' && seconds === 0) {
-            field.css('background-color','red');
+            field.css('background-color','rgba(220, 0, 0, 0.5)');
             field.focus();
             $('#f_duration').data("seconds", 0);
         } else {
             field.val(toDurationString(seconds));
-            field.css('background-color', 'green');
+            field.css('background-color', 'white');
             $('#f_duration').data("seconds", seconds);
         }
     });

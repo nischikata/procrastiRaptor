@@ -23,6 +23,7 @@ function openDb() {
     req.onsuccess = function (evt) {
         db = this.result;
         console.log("openDb DONE");
+
     };
     req.onerror = function (evt) {
         console.error("openDb:", evt.target.errorCode);
@@ -36,6 +37,7 @@ function openDb() {
         store.createIndex('category', 'category', { unique: false });
         store.createIndex('p_time_effort', 'p_time_effort', { unique: false });
     };
+
 }
 
 /**
@@ -54,14 +56,11 @@ function getTask(key, store, success_callback) {
         if (value) {
             //TODO:
             //success_callback(value.xyz);
-
         }
-
     };
 }
 
 function addTask(title, notes, category, duedate, difficulty, satisfaction, time_effort, priority){
-
 
     console.log("add Task arguments:", arguments);
 
@@ -75,11 +74,10 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, time
     try {
         req = store.add(task);
     } catch (error) {
-        console.log("Could not add task to list, some error occurred.")
+        displayActionFailure(this.error);
     }
 
     req.onsuccess = function (event) {
-        console.log("task inserted into db successfully.");
 
         //reset form
         document.getElementById('form_add_task').reset();
@@ -88,12 +86,11 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, time
         duration_field.data("seconds", 0);
         duration_field.css('background-color', 'white');
 
-        displayActionSuccess("New Task added successfully.")
+        displayActionSuccess("New Task \'" + title + "\' added successfully.");
+        displayTaskList();
     }
 
     req.onerror = function() {
-        console.error("error: TASK could not be added to db.", this.error);
-
         displayActionFailure(this.error);
     };
 }
@@ -107,7 +104,7 @@ function displayActionFailure(message) {
 
 function displayActionSuccess(message) {
     $("#form_success").text(message);
-    $("#form_success").show().delay(7000).queue(function(n) {
+    $("#form_success").show().delay(6000).queue(function(n) {
         $(this).hide(); n();
     });
 }
@@ -168,6 +165,62 @@ function addEventListeners(){
     });
 
 
+}
+
+function displayTaskList(store) {
+    console.log("display task list");
+    if (typeof store == 'undefined') {
+        console.log("store undefined");
+        store = getObjectStore(DB_STORE_NAME, 'readonly');
+        console.log(store);
+    } else {
+        console.log("not undefined");
+        console.log(store);
+    }
+
+
+    // get list and empty list to remove previous content
+    var ul_tasks = $('#ul_tasks');
+    ul_tasks.empty();
+
+
+    var i = 0;
+    var req;
+    req = store.count();
+    req.onsuccess = function(evt) {
+        console.log('There are' + evt.target.result +
+        ' record(s) in the object store.');
+    };
+
+    req = store.openCursor();
+    req.onsuccess = function(evt) {
+        var cursor = evt.target.result;
+//TODO display list content, or... write a display task function
+        // If the cursor is pointing at something, ask for the data
+        if (cursor) {
+            console.log("displayTaskList cursor:", cursor);
+            req = store.get(cursor.key);
+            req.onsuccess = function (evt) {
+                var value = evt.target.result;
+                var list_item = $('<li>' +
+                '[' + cursor.key + '] ' +
+                value.title +
+                '</li>');
+                if (value.category != null)
+                    list_item.append(' - ' + value.category);
+
+                ul_tasks.append(list_item);
+            };
+
+            // Move on to the next object in store
+            cursor.continue();
+
+            // This counter serves only to create distinct ids
+            i++;
+        } else {
+            console.log("No more entries");
+        }
+    };
 }
 
 openDb();
