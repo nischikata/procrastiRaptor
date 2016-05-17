@@ -62,7 +62,7 @@ function getTask(key, store, success_callback) {
     };
 }
 
-function addTask(title, difficulty, satisfaction, time_effort, priority){}
+function addTask(title, duedate, difficulty, satisfaction, time_effort, priority){}
 
 function updateTask(){}
 
@@ -74,18 +74,33 @@ function addEventListeners(){
 
     $('#add-button').click(function(evt) {
         console.log("add ...");
-        var title = $('#title').val();
-        var p_diff = $('#p_diff').val();
+        var title = $('#f_title').val();
+        var category = $('#f_category').val();
+        console.log("category? " + category);
+        if (!category) {
+            //TODO test what value no selection returns !
+        }
+
+        var date = $('#f_duedatetime').val();
+        // TODO: check what the value returns? Date object?
+
+        var difficulty = $('#f_pdifficulty').val();
+
+
+        var satisfaction = $('#f_psatisfaction').val();
         if (!title) {
             console.log("Required field(s) missing");
             return;
         }
 
+        var time_effort = $('#f_duration').data("seconds"); //TODO: read time from data attribute
+        var priority = $('#f_priority').val();
+
         //TODO add rest + validation
 
         //TODO time needs to be converted to minutes
 
-        addTask(title, p_diff);
+        addTask(title, date, difficulty, satisfaction, time_effort, priority);
 
     });
     //

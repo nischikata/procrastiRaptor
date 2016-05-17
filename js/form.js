@@ -47,7 +47,7 @@ function toDurationString(iDuration) {
     var m = Math.floor((iDuration/60)%60);
     var h = Math.floor((iDuration/3600)%24);
     var d = Math.floor(iDuration/86400);
-    result = ''
+    result = '';
     if (d > 0) result = result + d + 'd ';
     if (h > 0) result  = result + h + 'h ';
     if (m > 0) result  = result + m + 'm ';
@@ -60,9 +60,11 @@ $(function() {
         var field = $(this);
         var sd = field.val();
         seconds = parseDuration(sd);
+        //TODO: write seconds into data attribute, t
         if (sd !== '' && seconds === 0) {
             field.css('background-color','red');
             field.focus();
+            //TODO: mark as invalid or set data attribute to 0
         } else {
             field.val(toDurationString(seconds));
             field.css('background-color', 'green');
