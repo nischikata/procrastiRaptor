@@ -54,9 +54,9 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, time
 
     console.log("add Task arguments:", arguments);
 
-    var task = { title: title, notes: notes, category: category,
+    var task = { title: title, notes: notes, category: category, duedate: duedate,
         p_difficulty:  difficulty, p_satisfaction:  satisfaction, p_time_effort: time_effort, priority: priority, ranking: null,
-        a_difficulty: null, a_satisfaction: null, a_time_effort: null, done: true };
+        a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: true };
 
     var store = getObjectStore(DB_STORE_NAME, 'readwrite');
     var req;
@@ -242,18 +242,28 @@ function getTaskListElement(value, key) {
 
     // TOP ROW
 
-    var top_row = $('<div class="top_row"><div class="due_in">' +
-    '<div>15h</div><div class="description">due in</div></div>' +
+    var due = value.duedate;
+    if (due == undefined || due == '') {
+        due = "any time";
+    }
+
+    var top_row = $('<div class="top_row"><div class="duetime">' +
+    '<div>'+ due +'</div><div class="description">due on</div></div>' +
     '<div class="task_title"><h2>' + value.title +
     '</h2></div></div>');
     list_item.append(top_row);
+
+    var p_time_effort = toDurationString(value.p_time_effort);
+    var a_time_effort = toDurationString(value.a_time_effort);
+    console.log("p time: " + p_time_effort);
+    console.log("a time: " + a_time_effort);
 
     // BOTTOM ROW
     var bottom_row = $('<div class="bottom_row">' +
     '<div class="difficulty"><div class="trapez trapez_1 grey"></div><div class="trapez trapez_2 grey"></div><div class="trapez trapez_3"></div><div class="trapez trapez_4"></div><div class="trapez trapez_5"></div>' +
     '<div class="description">difficulty</div></div>' +
-    '<div class="satisfaction"><div class="laughing"></div><span class="description">satisfaction</span></div><div class="effort"><div class="invested right"><span>1</span><div class="description right">invested</div></div>' +
-    '<div class="predicted"><span>&nbsp;8m</span><div class="description">&nbsp;predicted</div></div></div>' +
+    '<div class="satisfaction"><div class="laughing"></div><span class="description">satisfaction</span></div><div class="effort"><div class="invested right"><span>' + a_time_effort + '</span><div class="description right">invested</div></div>' +
+    '<div class="predicted"><span>&nbsp;'+ p_time_effort + '</span><div class="description">&nbsp;predicted</div></div></div>' +
     '</div>');
 
     list_item.append(bottom_row);
@@ -261,7 +271,7 @@ function getTaskListElement(value, key) {
         $(this).find(".bottom_row").toggle(500);
     });
 
-    // TODO: replace dblclick function with something more meaningful
+    // TODO: replace mousedown function with something more meaningful
     /* TODO: actually! add a step inbetween: color the task red, add word "remove?"
      + some delete icon maybe, the next tap (or click) calls removeTask
      perhaps add a timeout to this - if not deleted within 5s, revert back to normal display?
@@ -271,7 +281,7 @@ function getTaskListElement(value, key) {
      */
     list_item.mousedown(function(e){
         if( e.button == 2 ) {
-            alert('Right mouse button!');
+            console.log('Right mouse button!');
             removeTask(key);
             return false;
         }
@@ -279,7 +289,7 @@ function getTaskListElement(value, key) {
     });
 
     list_item.dblclick(function(){
-        updateTask(key, "title", "Huhu.");
+        updateTask(key, "title", "entry updated.");
     });
 
     return list_item;
@@ -288,7 +298,6 @@ function getTaskListElement(value, key) {
 function updateTaskListView(store) {
     console.log("display task list");
     if (typeof store == 'undefined') {
-        console.log("store undefined");
         store = getObjectStore(DB_STORE_NAME, 'readonly');
         console.log(store);
     } else {

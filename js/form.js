@@ -43,7 +43,7 @@ function parseDuration(sDuration) {
 // the number of seconds provided.
 // rounded off to the nearest 1 minute.
 function toDurationString(iDuration) {
-    if (iDuration <= 0) return '';
+    if (iDuration <= 0) return '0m';
     var m = Math.floor((iDuration/60)%60);
     var h = Math.floor((iDuration/3600)%24);
     var d = Math.floor(iDuration/86400);
