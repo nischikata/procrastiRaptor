@@ -56,7 +56,7 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, time
 
     var task = { title: title, notes: notes, category: category, duedate: duedate,
         p_difficulty:  difficulty, p_satisfaction:  satisfaction, p_time_effort: time_effort, priority: priority, ranking: null,
-        a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: true };
+        a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: false };
 
     var store = getObjectStore(DB_STORE_NAME, 'readwrite');
     var req;
@@ -238,6 +238,10 @@ function getTaskListElement(value, key) {
     var list_item = $('<li class="task"></li>');
     if (value.category != "")
         list_item.addClass(value.category);
+
+    if (value.done) {
+        list_item.addClass("done");
+    }
     list_item.data("key", key);
 
     // TOP ROW
@@ -267,29 +271,75 @@ function getTaskListElement(value, key) {
     '</div>');
 
     list_item.append(bottom_row);
-    list_item.click(function(){ // expand / hide predictions
-        $(this).find(".bottom_row").toggle(500);
-    });
 
-    // TODO: replace mousedown function with something more meaningful
-    /* TODO: actually! add a step inbetween: color the task red, add word "remove?"
-     + some delete icon maybe, the next tap (or click) calls removeTask
-     perhaps add a timeout to this - if not deleted within 5s, revert back to normal display?
 
-     OR: swipe event gives you these options:
-     1. mark as DONE, 2. edit task, 3. delete, 4. go back
-     */
-    list_item.mousedown(function(e){
-        if( e.button == 2 ) {
-            console.log('Right mouse button!');
-            removeTask(key);
-            return false;
+    // TOUCH EVENTS HAMMER TIME !
+    var native_li = list_item.get( 0 );
+    var hammer_manager = new Hammer(native_li);
+
+    hammer_manager.on("panleft swipeleft", function(e){
+        var width = $( native_li ).width();
+        native_li.style.transform = 'translateX(' + e.deltaX + 'px)';
+
+        if (width < -2 * e.deltaX) {
+            native_li.style.backgroundColor = 'rgba(220, 23, 26, 0.20)';
+            native_li.style.borderColor = 'rgba(220, 23, 26, 0.9)';
         }
-        return true;
     });
 
-    list_item.dblclick(function(){
-        updateTask(key, "title", "entry updated.");
+    hammer_manager.on("panright swiperight", function(e){
+        var width = $( document ).width();
+        native_li.style.transform = 'translateX(' + e.deltaX + 'px)';
+        console.log("delta X:   " + e.deltaX + "  window: " + width);
+
+        if (width < 2 * e.deltaX && !value.done) {
+            native_li.style.backgroundColor = 'rgba(67, 221, 54, 0.4)';
+            native_li.style.borderColor = 'rgba(67, 221, 54, 0.8)';
+        }
+    });
+
+    hammer_manager.on("swipeend panend", function(e){
+        var width = $( document ).width();
+        console.log(e);
+        console.log("DIRECTION:  " + e.direction);
+        console.log("lef is:" + Hammer.DIRECTION_LEFT + " and right is  " + Hammer.DIRECTION_RIGHT);
+        console.log("delta x is: " + e.deltaX);
+
+
+        if (width < -2 * e.deltaX && e.overallVelocityX > -1.0) { // swipe left, delete Task
+            $(native_li).fadeOut("slow", function() {
+                hammer_manager.remove("pan");
+                hammer_manager.stop();
+                hammer_manager.destroy();
+                removeTask(key);});
+
+        } else if (!value.done && width < 2 * e.deltaX && e.overallVelocityX < 1.0) { // swipe right, mark Task DONE
+            hammer_manager.remove("pan swipe");
+            updateTask(key, "done", true);
+        } else {
+            // reset otherwise
+            $(native_li).fadeOut("fast", function() { $(native_li).css("transform", "").css("background-color", "").css("border-color", "").fadeIn('fast'); });
+
+        }
+    });
+
+// TOGGLE BOTTOM ROW ON TAP
+
+    hammer_manager.on("tap", function(e) {
+        list_item.find(".bottom_row").toggle(500);
+    });
+
+
+    // EDIT VIEW ON PreSS
+
+    var press = hammer_manager.get('press');
+    press.set({ time: 1000}); // set minimum press time in ms
+
+    hammer_manager.on("press", function(e){
+        var width = $( document ).width();
+        if (width > Math.abs(3 * e.deltaX)) {
+            updateTask(key, "title", "entry updated.");
+        }
     });
 
     return list_item;
@@ -315,27 +365,21 @@ function updateTaskListView(store) {
     var req;
     req = store.count();
     req.onsuccess = function(evt) {
-        console.log('There are' + evt.target.result +
-        ' record(s) in the object store.');
+        // console.log('There are' + evt.target.result + ' record(s) in the object store.');
     };
 
     req = store.openCursor();
     req.onsuccess = function(evt) {
         var cursor = evt.target.result;
-//TODO display list content, or... write a display task function
         // If the cursor is pointing at something, ask for the data
         if (cursor) {
-            console.log("updateTaskListView cursor:", cursor);
+           // console.log("updateTaskListView cursor:", cursor);
             req = store.get(cursor.key);
             req.onsuccess = function (evt) {
                 var key = cursor.key;
                 var value = evt.target.result;
 
-                // TODO
                 var list_item = getTaskListElement(value, key);
-
-
-
 
                 ul_tasks.append(list_item);
             };
@@ -346,7 +390,7 @@ function updateTaskListView(store) {
             // This counter serves only to create distinct ids
             i++;
         } else {
-            console.log("No more entries");
+           // console.log("No more entries");
         }
     };
 }

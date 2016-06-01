@@ -469,3 +469,13 @@ a:hover {
 .invested > span {
     color: #67cddc;
 }
+
+.done {
+    background-color: rgba(67, 221, 54, 0.2);
+    border-color: rgba(67, 221, 54, 0.9);
+}
+
+.removed {
+    background-color: rgba(220, 23, 26, 0.30);
+    border-color: rgba(220, 23, 26, 0.90);
+}
