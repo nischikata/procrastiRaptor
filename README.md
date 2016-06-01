@@ -9,4 +9,4 @@ HUEE Anti Procrastination App
 * SVG Optimization: [SVGO] (https://github.com/svg/svgo)
 * Icons from: [The Noun Project](https://thenounproject.com/)
 * [Git Flow] (http://danielkummer.github.io/git-flow-cheatsheet/)
-* [Hammer.js](http://hammerjs.github.io/) (Version 2)
+* Touch Gesture Support: [Hammer.js](http://hammerjs.github.io/) (Version 2)
