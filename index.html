@@ -3,8 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>ProcrastiRaptor - Welcome !</title>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" media="all" rel="stylesheet" type="text/css">
     <link href="css/form.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <nav>
@@ -197,56 +199,180 @@
     </main>
 </div>
 
-
-
 <div id="add_task_view" class="view">
     <header>
-        <h2>Add a task to your TO DO list</h2>
+        <h2></h2>
 
     </header>
 
 
 
     <main>
-        <form id="form_add_task">
 
-            <label for="f_title">Title</label> <input type="text" id="f_title">
-            <label for="f_category">Category</label> <select id="f_category">
-            <option label=" "></option>
-            <option value="health">Health</option>
-            <option value="work">Work</option>
-            <option value="school">School</option>
-            <option value="home">Home</option>
-            <option value="sport">Sport</option>
-        </select>
-            <label for="f_duedatetime">Due</label><input type="datetime" id="f_duedatetime" name="f_duedatetime">
-            <label for="f_pdifficulty">Predicted difficulty</label><input type="range" id="f_pdifficulty">
-            <label>Predicted satisfaction</label>
-                <input type="radio" name="f_psatisfaction" value="1" checked>indifferent</input>
-                <input type="radio" name="f_psatisfaction" value="2">happy</input>
-            <label for="f_duration">Predicted effort in time</label>
-            <input type="text" size="10" maxlength="10" placeholder = '1d 10h 5m' id="f_duration" data-seconds="0" class="duration"/>
-            <label for="f_priority">Priority</label><select id="f_priority">
-            <option value="A">A - High Priority</option>
-            <option value="B">B - Medium Priority</option>
-            <option value="C">C - Low Priority</option>
-        </select>
-            <div id="add-task-button" class="add" data-view="add_task_view">add task</div>
+
+        <form id="form_add_task" class="form-horizontal">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Add Task</legend>
+
+                <!-- Text input ---- TASK TITLE -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_title">Title</label>
+                    <div class="col-md-4">
+                        <input id="f_title" name="f_title" placeholder="Task Title" class="form-control input-md" required="" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Multiple Checkboxes --- PREDICTED DIFFICULTY-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_p_difficulty">Predicted Difficulty</label>
+                    <div class="col-md-4">
+                        <div class="checkbox">
+                            <label for="f_p_difficulty-0">
+                                <input name="f_p_difficulty" id="f_p_difficulty-0" value="1" type="checkbox">
+                                1
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="f_p_difficulty-1">
+                                <input name="f_p_difficulty" id="f_p_difficulty-1" value="2" type="checkbox">
+                                2
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="f_p_difficulty-2">
+                                <input name="f_p_difficulty" id="f_p_difficulty-2" value="3" type="checkbox">
+                                3
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="f_p_difficulty-3">
+                                <input name="f_p_difficulty" id="f_p_difficulty-3" value="4" type="checkbox">
+                                4
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label for="f_p_difficulty-4">
+                                <input name="f_p_difficulty" id="f_p_difficulty-4" value="5" type="checkbox">
+                                5
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Multiple Radios (inline)--- PREDICTED SATISFACTION -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_p_satisfaction">Predicted Satisfaction</label>
+                    <div class="col-md-4" id="f_p_satisfaction_group">
+                        <label class="radio-inline" for="f_p_satisfaction-0">
+                            <input id="f_p_satisfaction-0" value="1" checked="checked" type="radio" required>
+                            <div class="satisfaction"><div name="f_p_satisfaction" class="indifferent grey"></div></div>
+                        </label>
+                        <label class="radio-inline" for="f_p_satisfaction-1">
+                            <input id="f_p_satisfaction-1" value="2" type="radio">
+                            <div class="satisfaction"><div name="f_p_satisfaction" class="glad grey"></div></div>
+                        </label>
+                        <label class="radio-inline" for="f_p_satisfaction-2">
+                            <input id="f_p_satisfaction-2" value="3" type="radio">
+                            <div class="satisfaction"><div name="f_p_satisfaction" class="wink grey"></div></div>
+                        </label>
+                        <label class="radio-inline" for="f_p_satisfaction-3">
+                            <input id="f_p_satisfaction-3" value="4" type="radio">
+                            <div class="satisfaction"><div name="f_p_satisfaction" class="laughing grey"></div></div>
+                        </label>
+                        <label class="radio-inline" for="f_p_satisfaction-4">
+                            <input id="f_p_satisfaction-4" value="5" type="radio">
+                            <div class="satisfaction"><div name="f_p_satisfaction" class="king grey"></div></div>
+                        </label>
+                        <label class="radio-inline" for="f_p_satisfaction-5">
+                            <input id="f_p_satisfaction-5" value="6" type="radio">
+                            <div class="satisfaction"><div name="f_p_satisfaction" class="pirate grey"></div></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Text input --- PREDICTED DURATION / EFFORT IN TIME -->
+
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_duration">Predicted Total Effort in Time</label>
+                    <div class="col-md-4">
+                        <input id="f_duration" name="f_duration" placeholder="1d 4h 10m" data-seconds="0" class="duration form-control input-md" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Text input --- ACTUAL DURATION / INVESTED TIME -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_a_duration">Already invested Time</label>
+                    <div class="col-md-4">
+                        <input id="f_a_duration" name="f_a_duration" placeholder="0m" data-seconds="0" class="duration form-control input-md" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Text input --- DUE DATE TIME -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_duedatetime">Due</label>
+                    <div class="col-md-4">
+                        <input type="datetime" id="f_duedatetime" name="f_duedatetime" placeholder="" class="form-control input-md" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Multiple Radios (inline) --- PRIORITY -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_priority">Priority</label>
+                    <div class="col-md-4">
+                        <label class="radio-inline" for="f_priority-0">
+                            <input name="f_priority" id="f_priority-0" value="1" checked="checked" type="radio">
+                            <span>High</span>
+                        </label>
+                        <label class="radio-inline" for="f_priority-1">
+                            <input name="f_priority" id="f_priority-1" value="2" type="radio">
+                            <span>Medium</span>
+                        </label>
+                        <label class="radio-inline" for="f_priority-2">
+                            <input name="f_priority" id="f_priority-2" value="3" type="radio">
+                            <span>Low</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Select Basic --- CATEGORY / LABEL -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="f_category">Label</label>
+                    <div class="col-md-4">
+                        <select id="f_category" name="f_category" class="form-control">
+                            <option value="default">None</option>
+                            <option value="health">Health</option>
+                            <option value="home">Home</option>
+                            <option value="work">Work</option>
+                            <option value="school">School</option>
+                        </select>
+                    </div>
+                </div>
+
+            </fieldset>
+            <div name="add-task-button" class="btn btn-primary" data-view="add_task_view">add Task</div>
+            <div name="reset-task-form" class="btn btn-default" data-view="list_view">cancel</div>
         </form>
-    </main>
-</div>
 
-<div id="form_messages">
-    <p id="form_success" class="form_msg">Success!</p>
-    <p id="form_fail" class="form_msg">Error!</p>
+    </main>
 </div>
 
 
 
 <footer>
+    <div id="form_messages">
+    <p id="form_success" class="form_msg">Success!</p>
+    <p id="form_fail" class="form_msg">Error!</p>
+</div>
 
 
-        <div class="task task_title add" data-view="add_task_view">
+        <div class="task task_title add" data-view="add_task_view" id="add-task-footer">
             <h2>add</h2>
         </div>
 

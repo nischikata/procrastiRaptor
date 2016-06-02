@@ -12,9 +12,9 @@ $(".add, nav ul li").each(function(){ // select all navigation elements incl. ad
 
 
         if (view_id == "#add_task_view") {
-            $("footer").hide();
+            $("#add-task-footer").hide();
         } else {
-            $("footer").show();
+            $("#add-task-footer").show();
         }
 
     })

@@ -55,19 +55,55 @@ function toDurationString(iDuration) {
 }
 
 $(function() {
+
+// DURATION / TIME EFFORT
+
     $("form input.duration").change(function(event, ui) {
+        console.log("changed. " + event);
         event.preventDefault();
         var field = $(this);
         var sd = field.val();
         seconds = parseDuration(sd);
+        console.log("sd is: "+sd +"  seconds are: " + seconds);
         if (sd !== '' && seconds === 0) {
-            field.css('background-color','rgba(220, 0, 0, 0.5)');
+            field.addClass('error');
+            //field.css('background-color','rgba(220, 0, 0, 0.5)');
             field.focus();
             $('#f_duration').data("seconds", 0);
         } else {
+            field.removeClass('error');
             field.val(toDurationString(seconds));
-            field.css('background-color', 'white');
             $('#f_duration').data("seconds", seconds);
         }
     });
-});
+
+    // SATISFACTION
+
+    //TODO
+    /*
+    * on radio field satisfaction changed
+    * get the one div .satisfaction that does  not have grey class and add grey class
+    * then remove grey class from where radio checked.
+    * */
+    select_satisfaction_icon("#f_p_satisfaction_group");
+
+
+ });
+
+function select_satisfaction_icon(id){
+
+    var emos = $(id).find("div[name='f_p_satisfaction']");
+
+    emos.click(function(){
+        if ($(this).hasClass("grey")){
+            //
+            emos.not(".grey").each(function(){
+                $(this).addClass("grey")
+            });
+            $(this).removeClass("grey");
+        }
+    });
+
+
+
+}

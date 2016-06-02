@@ -195,7 +195,7 @@ function removeTask(key, store) {
 
 function addEventListeners(){
 
-    $('#add-task-button').click(function(evt) {
+    $("div[name='add-task-button']").click(function(evt) {
         console.log("add ...");
         var title = $('#f_title').val();
         var category = $('#f_category').val();
@@ -252,7 +252,7 @@ function getTaskListElement(value, key) {
     }
 
     var top_row = $('<div class="top_row"><div class="duetime">' +
-    '<div>'+ due +'</div><div class="description">due on</div></div>' +
+    '<div>'+ due +'</div><div class="description">due</div></div>' +
     '<div class="task_title"><h2>' + value.title +
     '</h2></div></div>');
     list_item.append(top_row);

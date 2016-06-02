@@ -1,7 +1,6 @@
 body {
-    background: rgba(208, 221, 43, 0.2);
+    background: rgba(208, 221, 43, 0.20);
     margin: 0;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
 }
 
@@ -419,27 +418,55 @@ a:hover {
     display: block;
 }
 
+.satisfaction:hover > div {
+    /*background-color: rgba(208, 221, 43, 0.33);*/
+    /*border-radius: 10px;*/
+}
+
+.grey {
+    opacity: 0.3;
+}
+
 .king {
     background-image: url("../icons/emo_king.svg");
+}
+.king.grey {
+    background-image: url("../icons/emo_king_grey.svg");
 }
 
 .glad {
     background-image: url("../icons/emo_glad.svg") ;
 }
+.glad.grey {
+    background-image: url("../icons/emo_glad_grey.svg") ;
+}
 
 .laughing {
-    background-image: url("../icons/emo_laughing.svg") ;
+     background-image: url("../icons/emo_laughing.svg") ;
+ }
+.laughing.grey {
+    background-image: url("../icons/emo_laughing_grey.svg") ;
 }
 .indifferent {
     background-image: url("../icons/emo_indifferent.svg") ;
 }
 
+.indifferent.grey {
+    background-image: url("../icons/emo_indifferent_grey.svg") ;
+}
+
 .pirate {
     background-image: url("../icons/emo_pirate.svg") ;
+}
+.pirate.grey {
+    background-image: url("../icons/emo_pirate_grey.svg") ;
 }
 
 .wink {
     background-image: url("../icons/emo_wink.svg") ;
+}
+.wink.grey {
+    background-image: url("../icons/emo_wink_grey.svg") ;
 }
 
 /* Effort - Time */

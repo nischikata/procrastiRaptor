@@ -53,6 +53,19 @@ table {
     font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
 }
 
+form {
+    padding: 0px 7px 0px 13px;
+    font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
+    color: rgba(71, 80, 21, 0.80);
+    font-weight: 100;
+    font-size: 16px;
+}
+
+label {
+    font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
+    font-weight: 100;
+    font-size: 17px;
+}
 
 tr {
     margin: 4px;
@@ -89,12 +102,17 @@ td:nth-child(odd) {
     font-size: 14px; font-family: "proxima-nova","open-sans","Calibri",Helvetica,sans-serif;
 }
 
+#add-task-footer {
+    z-index: 99;
+}
+
 #form_messages {
     min-height: 35px;
     color: white;
     font-weight: 800;
     font-size: 18px;
     clear: both;
+    z-index: 100;
 }
 
 .form_msg {
@@ -111,3 +129,31 @@ td:nth-child(odd) {
 #form_fail {
     background-color: rgba(220, 52, 36, 0.62);
 }
+
+.error {
+    background-color: rgba(220, 52, 36, 0.62);
+}
+
+input[type=radio]{
+    width: 0;
+    height: 0;
+    margin  : 0;
+    padding : 0;
+    opacity : 0;
+}
+
+.radio-inline {
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.radio-inline:hover {
+    background-color: rgba(208, 221, 43, 0.33);
+
+}
+
+.radio-inline > input:checked + span {
+    color: rgb(72, 198, 227);
+    font-weight: 600;
+}
+
