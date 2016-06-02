@@ -350,6 +350,7 @@ a:hover {
 
 .trapez {
     margin: auto;
+    margin-top: 1px;
     height: 1px;
     border-left: 2px solid transparent;
     border-right: 2px solid transparent;
@@ -357,6 +358,8 @@ a:hover {
     border-bottom-style: solid;
     border-bottom-color: rgb(15, 115, 148);
 }
+
+
 
 .trapez:hover {
     border-bottom-color: rgb(103, 205, 220);
@@ -382,9 +385,6 @@ a:hover {
     width: 35px;
 }
 
-.grey {
-    border-bottom-color: rgba(210, 210, 210, 0.70);
-}
 .grey:hover {
     border-bottom-color: rgba(210, 210, 210, 0.70);
 }
@@ -418,55 +418,33 @@ a:hover {
     display: block;
 }
 
-.satisfaction:hover > div {
-    /*background-color: rgba(208, 221, 43, 0.33);*/
-    /*border-radius: 10px;*/
-}
 
 .grey {
-    opacity: 0.3;
+    opacity: 0.25;
 }
 
 .king {
     background-image: url("../icons/emo_king.svg");
 }
-.king.grey {
-    background-image: url("../icons/emo_king_grey.svg");
-}
 
 .glad {
     background-image: url("../icons/emo_glad.svg") ;
-}
-.glad.grey {
-    background-image: url("../icons/emo_glad_grey.svg") ;
 }
 
 .laughing {
      background-image: url("../icons/emo_laughing.svg") ;
  }
-.laughing.grey {
-    background-image: url("../icons/emo_laughing_grey.svg") ;
-}
+
 .indifferent {
     background-image: url("../icons/emo_indifferent.svg") ;
-}
-
-.indifferent.grey {
-    background-image: url("../icons/emo_indifferent_grey.svg") ;
 }
 
 .pirate {
     background-image: url("../icons/emo_pirate.svg") ;
 }
-.pirate.grey {
-    background-image: url("../icons/emo_pirate_grey.svg") ;
-}
 
 .wink {
     background-image: url("../icons/emo_wink.svg") ;
-}
-.wink.grey {
-    background-image: url("../icons/emo_wink_grey.svg") ;
 }
 
 /* Effort - Time */

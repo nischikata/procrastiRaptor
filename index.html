@@ -225,42 +225,28 @@
                     </div>
                 </div>
 
-                <!-- Multiple Checkboxes --- PREDICTED DIFFICULTY-->
+                <!--
+                                    <div class="difficulty">
+                        <div class="trapez trapez_1 grey"></div>
+                        <div class="trapez trapez_2 grey"></div>
+                        <div class="trapez trapez_3"></div>
+                        <div class="trapez trapez_4"></div>
+                        <div class="trapez trapez_5"></div>
+                        <div class="description">difficulty</div>
+                    </div>
+                --!>
+                <!-- Multiple Radios --- PREDICTED DIFFICULTY-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="f_p_difficulty">Predicted Difficulty</label>
-                    <div class="col-md-4">
-                        <div class="checkbox">
-                            <label for="f_p_difficulty-0">
-                                <input name="f_p_difficulty" id="f_p_difficulty-0" value="5" type="checkbox">
-                                1
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label for="f_p_difficulty-1">
-                                <input name="f_p_difficulty" id="f_p_difficulty-1" value="4" type="checkbox">
-                                2
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label for="f_p_difficulty-2">
-                                <input name="f_p_difficulty" id="f_p_difficulty-2" value="3" type="checkbox">
-                                3
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label for="f_p_difficulty-3">
-                                <input name="f_p_difficulty" id="f_p_difficulty-3" value="2" type="checkbox">
-                                4
-                            </label>
-                        </div>
-                        <div class="checkbox">
-                            <label for="f_p_difficulty-4">
-                                <input name="f_p_difficulty" id="f_p_difficulty-4" value="1" type="checkbox">
-                                5
-                            </label>
-                        </div>
+                    <div id="f_p_difficulty" class="col-md-4 difficulty" data-pdifficulty="6">
+                        <div name="5" class="trapez trapez_1 grey"></div>
+                        <div name="4" class="trapez trapez_2 grey"></div>
+                        <div name="3" class="trapez trapez_3 grey"></div>
+                        <div name="2" class="trapez trapez_4 grey"></div>
+                        <div name="1" class="trapez trapez_5 grey"></div>
                     </div>
                 </div>
+
 
                 <!-- Multiple Radios (inline)--- PREDICTED SATISFACTION -->
                 <div class="form-group">
@@ -327,7 +313,7 @@
                     <label class="col-md-4 control-label" for="f_priority">Priority</label>
                     <div class="col-md-4">
                         <label class="radio-inline" for="f_priority-0">
-                            <input name="f_priority" id="f_priority-0" value="1" checked="checked" type="radio">
+                            <input name="f_priority" id="f_priority-0" value="1" type="radio">
                             <span>High</span>
                         </label>
                         <label class="radio-inline" for="f_priority-1">

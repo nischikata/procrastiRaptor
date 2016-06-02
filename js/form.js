@@ -76,10 +76,36 @@ $(function() {
         }
     });
 
+
+    select_difficulty("#f_p_difficulty");
     select_satisfaction_icon("#f_p_satisfaction_group");
 
 
  });
+
+function select_difficulty(id) {
+    var trapezes = $(id).find(".trapez");
+
+    trapezes.click(function(){
+        var number = $(this).attr("name");
+        var prev_number = $(id).data("pdifficulty");
+        if (number == prev_number) {
+            number = 0;
+        }
+        $(id).data("pdifficulty", number);
+        draw_difficulty_pyramid(trapezes, number);
+    });
+}
+
+function draw_difficulty_pyramid(trapezes, number) {
+    for (var i = 0; i < (5 - number); ++i) {
+        $(trapezes.get(i)).addClass('grey');
+    }
+    while (number > 0) {
+        $(trapezes.get(number*-1)).removeClass('grey');
+        number -= 1;
+    }
+}
 
 function select_satisfaction_icon(id){
 
@@ -94,9 +120,6 @@ function select_satisfaction_icon(id){
             $(this).removeClass("grey");
         }
     });
-
-
-
 }
 
 function reset_satisfaction_fields(id) {

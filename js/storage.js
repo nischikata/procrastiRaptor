@@ -77,6 +77,7 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, p_ti
         duration_field.data("seconds", 0);
         duration_field.css('background-color', 'white');
         reset_satisfaction_fields("#f_p_satisfaction_group");
+        draw_difficulty_pyramid($("#f_p_difficulty").find(".trapez"), 0);
 
         displayActionSuccess("New Task \'" + title + "\' added successfully.");
         updateTaskListView();
@@ -209,7 +210,7 @@ function addEventListeners(){
         var date = $('#f_duedatetime').val();
         console.log("date: " + date);
 
-        var difficulty = $('#f_pdifficulty').val();
+        var difficulty = $("#f_p_difficulty").data("pdifficulty");
         console.log("diff: " + difficulty);
 
         var satisfaction = $( "input:radio[name=f_p_satisfaction]:checked" ).val();
@@ -275,6 +276,9 @@ function getTaskListElement(value, key) {
     '</div>');
 
     list_item.append(bottom_row);
+
+    var trapezes = bottom_row.find(".trapez");
+    draw_difficulty_pyramid(trapezes, value.p_difficulty);
 
 
     // TOUCH EVENTS HAMMER TIME !

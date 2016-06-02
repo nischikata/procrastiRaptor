@@ -143,17 +143,51 @@ input[type=radio]{
 }
 
 .radio-inline {
-    padding: 6px;
+    padding: 4px;
     border-radius: 10px;
+    color: #0f7394;
+}
+
+.radio-inline > input:not(:checked) + span {
+    opacity: 0.25;
 }
 
 .radio-inline:hover {
     background-color: rgba(208, 221, 43, 0.33);
-
 }
 
 .radio-inline > input:checked + span {
-    color: rgb(72, 198, 227);
     font-weight: 600;
 }
 
+#f_p_difficulty > .trapez {
+    margin-top: 7px;
+    border-bottom-width: 15px;
+}
+
+#f_p_difficulty > .trapez_1 {
+    width: 25px;
+}
+
+#f_p_difficulty > .trapez_2 {
+    width: 50px;
+}
+
+#f_p_difficulty > .trapez_3 {
+    width: 75px;
+}
+
+#f_p_difficulty > .trapez_4 {
+    width: 100px;
+}
+
+#f_p_difficulty > .trapez_5 {
+    width: 125px;
+}
+
+.radio-inline .satisfaction > div {
+    width: 41px;
+    height: 50px;
+}
+
+#f_p_satisfaction_group { display: flex; justify-content: space-between; }
