@@ -67,24 +67,15 @@ $(function() {
         console.log("sd is: "+sd +"  seconds are: " + seconds);
         if (sd !== '' && seconds === 0) {
             field.addClass('error');
-            //field.css('background-color','rgba(220, 0, 0, 0.5)');
             field.focus();
-            $('#f_duration').data("seconds", 0);
+            $(this).data("seconds", 0);
         } else {
             field.removeClass('error');
             field.val(toDurationString(seconds));
-            $('#f_duration').data("seconds", seconds);
+            $(this).data("seconds", seconds);
         }
     });
 
-    // SATISFACTION
-
-    //TODO
-    /*
-    * on radio field satisfaction changed
-    * get the one div .satisfaction that does  not have grey class and add grey class
-    * then remove grey class from where radio checked.
-    * */
     select_satisfaction_icon("#f_p_satisfaction_group");
 
 
@@ -92,7 +83,7 @@ $(function() {
 
 function select_satisfaction_icon(id){
 
-    var emos = $(id).find("div[name='f_p_satisfaction']");
+    var emos = $(id).find("div[name='f_p_satisfaction_emo']");
 
     emos.click(function(){
         if ($(this).hasClass("grey")){
@@ -106,4 +97,11 @@ function select_satisfaction_icon(id){
 
 
 
+}
+
+function reset_satisfaction_fields(id) {
+    var emos = $(id).find("div[name='f_p_satisfaction_emo']");
+    emos.each(function(){
+        $(this).addClass("grey")
+    });
 }

@@ -50,13 +50,14 @@ function getTask(key, store, success_callback) {
     };
 }
 
-function addTask(title, notes, category, duedate, difficulty, satisfaction, time_effort, priority){
+function addTask(title, notes, category, duedate, difficulty, satisfaction, p_time_effort, invested_time, priority){
 
     console.log("add Task arguments:", arguments);
+    console.log("predicted TIME n2: "+ p_time_effort + "    invested: " + invested_time);
 
     var task = { title: title, notes: notes, category: category, duedate: duedate,
-        p_difficulty:  difficulty, p_satisfaction:  satisfaction, p_time_effort: time_effort, priority: priority, ranking: null,
-        a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: false };
+        p_difficulty:  difficulty, p_satisfaction:  satisfaction, p_time_effort: p_time_effort, priority: priority, ranking: null,
+        a_difficulty: null, a_satisfaction: null, a_time_effort: invested_time, done: false };
 
     var store = getObjectStore(DB_STORE_NAME, 'readwrite');
     var req;
@@ -75,6 +76,7 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, time
         duration_field.val("");
         duration_field.data("seconds", 0);
         duration_field.css('background-color', 'white');
+        reset_satisfaction_fields("#f_p_satisfaction_group");
 
         displayActionSuccess("New Task \'" + title + "\' added successfully.");
         updateTaskListView();
@@ -210,7 +212,7 @@ function addEventListeners(){
         var difficulty = $('#f_pdifficulty').val();
         console.log("diff: " + difficulty);
 
-        var satisfaction = $( "input:radio[name=f_psatisfaction]:checked" ).val();
+        var satisfaction = $( "input:radio[name=f_p_satisfaction]:checked" ).val();
         if (!title) {
             console.log("Required field(s) missing");
             displayActionFailure("Required field(s) missing");
@@ -218,15 +220,16 @@ function addEventListeners(){
         }
 
         var time_effort = $('#f_duration').data("seconds");
-        console.log("time duration: " + time_effort);
+        var invested_time = $('#f_a_duration').data("seconds");
+        console.log("predicted TIME: "+ time_effort + "    invested: " + invested_time);
 
-        var priority = $('#f_priority').val();
+        var priority = $( "input:radio[name=f_priority]:checked" ).val();
 
         //TODO add rest + validation
 
         var notes = "none";
 
-        addTask(title, notes, category, date, difficulty, satisfaction, time_effort, priority);
+        addTask(title, notes, category, date, difficulty, satisfaction, time_effort, invested_time, priority);
 
     });
 
@@ -266,7 +269,8 @@ function getTaskListElement(value, key) {
     var bottom_row = $('<div class="bottom_row">' +
     '<div class="difficulty"><div class="trapez trapez_1 grey"></div><div class="trapez trapez_2 grey"></div><div class="trapez trapez_3"></div><div class="trapez trapez_4"></div><div class="trapez trapez_5"></div>' +
     '<div class="description">difficulty</div></div>' +
-    '<div class="satisfaction"><div class="laughing"></div><span class="description">satisfaction</span></div><div class="effort"><div class="invested right"><span>' + a_time_effort + '</span><div class="description right">invested</div></div>' +
+    '<div class="satisfaction"><div class="' + value.p_satisfaction +
+    '"></div><span class="description">satisfaction</span></div><div class="effort"><div class="invested right"><span>' + a_time_effort + '</span><div class="description right">invested</div></div>' +
     '<div class="predicted"><span>&nbsp;'+ p_time_effort + '</span><div class="description">&nbsp;predicted</div></div></div>' +
     '</div>');
 
