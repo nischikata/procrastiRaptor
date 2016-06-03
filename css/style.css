@@ -109,6 +109,10 @@ nav ul li:hover:not(.active) {
     display: none;
 }
 
+#rate_and_check_task {
+    display: none;
+}
+
 header {
     display: table;
     min-width: 400px;
@@ -122,6 +126,10 @@ header {
     background-position: right 7px top;
     background-repeat: no-repeat;
     min-height: 195px;
+}
+
+.bubble2 {
+    padding-right: 40px;
 }
 
 .filler {
@@ -484,4 +492,10 @@ a:hover {
 .removed {
     background-color: rgba(220, 23, 26, 0.30);
     border-color: rgba(220, 23, 26, 0.90);
+}
+
+.inline_title {
+    font-weight: bold;
+    font-size: 18px;
+    color: rgb(15, 115, 148);
 }

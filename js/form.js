@@ -59,12 +59,12 @@ $(function() {
 // DURATION / TIME EFFORT
 
     $("form input.duration").change(function(event, ui) {
-        console.log("changed. " + event);
+
         event.preventDefault();
         var field = $(this);
         var sd = field.val();
         seconds = parseDuration(sd);
-        console.log("sd is: "+sd +"  seconds are: " + seconds);
+
         if (sd !== '' && seconds === 0) {
             field.addClass('error');
             field.focus();
@@ -76,9 +76,12 @@ $(function() {
         }
     });
 
-
+    // predicted difficulty setup
     select_difficulty("#f_p_difficulty");
-    select_satisfaction_icon("#f_p_satisfaction_group");
+
+    // ACTUAL difficulty setup
+    select_difficulty("#f_a_difficulty");
+
 
 
  });
@@ -88,11 +91,11 @@ function select_difficulty(id) {
 
     trapezes.click(function(){
         var number = $(this).attr("name");
-        var prev_number = $(id).data("pdifficulty");
+        var prev_number = $(id).data("difficulty");
         if (number == prev_number) {
             number = 0;
         }
-        $(id).data("pdifficulty", number);
+        $(id).data("difficulty", number);
         draw_difficulty_pyramid(trapezes, number);
     });
 }
@@ -105,26 +108,4 @@ function draw_difficulty_pyramid(trapezes, number) {
         $(trapezes.get(number*-1)).removeClass('grey');
         number -= 1;
     }
-}
-
-function select_satisfaction_icon(id){
-
-    var emos = $(id).find("div[name='f_p_satisfaction_emo']");
-
-    emos.click(function(){
-        if ($(this).hasClass("grey")){
-            //
-            emos.not(".grey").each(function(){
-                $(this).addClass("grey")
-            });
-            $(this).removeClass("grey");
-        }
-    });
-}
-
-function reset_satisfaction_fields(id) {
-    var emos = $(id).find("div[name='f_p_satisfaction_emo']");
-    emos.each(function(){
-        $(this).addClass("grey")
-    });
 }

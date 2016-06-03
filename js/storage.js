@@ -39,21 +39,10 @@ function getObjectStore(store_name, mode) {
     return tx.objectStore(store_name);
 }
 
-function getTask(key, store, success_callback) {
-    var req = store.get(key);
-    req.onsuccess = function(evt) {
-        var value = evt.target.result;
-        if (value) {
-            //TODO:
-            //success_callback(value.xyz);
-        }
-    };
-}
+
 
 function addTask(title, notes, category, duedate, difficulty, satisfaction, p_time_effort, invested_time, priority){
 
-    console.log("add Task arguments:", arguments);
-    console.log("predicted TIME n2: "+ p_time_effort + "    invested: " + invested_time);
 
     var task = { title: title, notes: notes, category: category, duedate: duedate,
         p_difficulty:  difficulty, p_satisfaction:  satisfaction, p_time_effort: p_time_effort, priority: priority, ranking: null,
@@ -71,13 +60,7 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, p_ti
     req.onsuccess = function (event) {
 
         //reset form
-        document.getElementById('form_add_task').reset();
-        var duration_field = $("#f_duration");
-        duration_field.val("");
-        duration_field.data("seconds", 0);
-        duration_field.css('background-color', 'white');
-        reset_satisfaction_fields("#f_p_satisfaction_group");
-        draw_difficulty_pyramid($("#f_p_difficulty").find(".trapez"), 0);
+        resetAddTaskForm();
 
         displayActionSuccess("New Task \'" + title + "\' added successfully.");
         updateTaskListView();
@@ -114,40 +97,60 @@ function clearObjectStore(store_name) {
     };
 }
 
+
+function getTask2(key, store, success_callback) {
+    var req = store.get(key);
+    req.onsuccess = function(evt) {
+        var value = evt.target.result;
+        if (value) {
+            //TODO:
+            //success_callback(value.xyz);
+        }
+    };
+}
 /**
  * @param {number} key
- * @param {IDBObjectStore=} store
+ * @param {string} mode
+ *
+ */
+function getTask(key, mode) {
+
+
+}
+
+/**
+ * @param {number} key
  * @param {string} name
  * @param value
  */
-function updateTask(key, name, value, store){
-    console.log("update Task: ", arguments);
-    if (typeof store == 'undefined') {
-        store = getObjectStore(DB_STORE_NAME, 'readwrite');
-    }
+function updateTask(key, name, value){
+
+    var store = getObjectStore(DB_STORE_NAME, 'readwrite');
 
     var request = store.get(key);
     request.onerror = function(event) {
-        // Handle errors!
+        console.log("fail request");
+
+        return false;
+
     };
     request.onsuccess = function(event) {
+
         // Get the old value that we want to update
-        var data = request.result;
+       var data = request.result;
 
         // update the value(s) in the object that you want to change
-        console.log("data name: " + data[name]);
         data[name] = value;
 
         // Put this updated object back into the database.
         var requestUpdate = store.put(data);
         requestUpdate.onerror = function(event) {
             // Do something with the error
+            return false;
         };
         requestUpdate.onsuccess = function(event) {
             // Success - the data is updated!
-            displayActionSuccess("Task updated successfully.");
-            // TODO: only update this one list element!
-            updateTaskListView();
+            return true;
         };
     };
 }
@@ -158,7 +161,6 @@ function updateTask(key, name, value, store){
  * @param {IDBObjectStore=} store
  */
 function removeTask(key, store) {
-    console.log("delete Task:", arguments);
 
     if (typeof store == 'undefined')
         store = getObjectStore(DB_STORE_NAME, 'readwrite');
@@ -170,7 +172,6 @@ function removeTask(key, store) {
     var req = store.get(key);
     req.onsuccess = function(evt) {
         var task = evt.target.result;
-        console.log("Task:", task);
         if (typeof task == 'undefined') {
             displayActionFailure("No matching record found");
             return;
@@ -180,10 +181,7 @@ function removeTask(key, store) {
         // be a Number for deletion.
         req = store.delete(key);
         req.onsuccess = function(evt) {
-            console.log("evt:", evt);
-            console.log("evt.target:", evt.target);
-            console.log("evt.target.result:", evt.target.result);
-            console.log("delete successful");
+
             displayActionSuccess("Deletion successful");
             updateTaskListView(store);
         };
@@ -199,19 +197,11 @@ function removeTask(key, store) {
 function addEventListeners(){
 
     $("div[name='add-task-button']").click(function(evt) {
-        console.log("add ...");
         var title = $('#f_title').val();
         var category = $('#f_category').val();
-        console.log("category? " + category);
-        if (!category) {
-            console.log("no category selected");
-        }
 
         var date = $('#f_duedatetime').val();
-        console.log("date: " + date);
-
-        var difficulty = $("#f_p_difficulty").data("pdifficulty");
-        console.log("diff: " + difficulty);
+        var difficulty = $("#f_p_difficulty").data("difficulty");
 
         var satisfaction = $( "input:radio[name=f_p_satisfaction]:checked" ).val();
         if (!title) {
@@ -222,11 +212,11 @@ function addEventListeners(){
 
         var time_effort = $('#f_duration').data("seconds");
         var invested_time = $('#f_a_duration').data("seconds");
-        console.log("predicted TIME: "+ time_effort + "    invested: " + invested_time);
+
 
         var priority = $( "input:radio[name=f_priority]:checked" ).val();
 
-        //TODO add rest + validation
+        //TODO VALIDATION
 
         var notes = "none";
 
@@ -234,11 +224,17 @@ function addEventListeners(){
 
     });
 
+    $("div[name='reset-task-button']").click(function(evt) {
+        resetAddTaskForm();
+    });
 
+    $("div[name='reset-rate-task-form']").click(function(evt) {
+        resetFinishTaskForm();
+    });
 }
 
 function getTaskListElement(value, key) {
-    console.log("task content: ", arguments);
+
     var list_item = $('<li class="task"></li>');
     if (value.category != "")
         list_item.addClass(value.category);
@@ -263,8 +259,6 @@ function getTaskListElement(value, key) {
 
     var p_time_effort = toDurationString(value.p_time_effort);
     var a_time_effort = toDurationString(value.a_time_effort);
-    console.log("p time: " + p_time_effort);
-    console.log("a time: " + a_time_effort);
 
     // BOTTOM ROW
     var bottom_row = $('<div class="bottom_row">' +
@@ -298,7 +292,6 @@ function getTaskListElement(value, key) {
     hammer_manager.on("panright swiperight", function(e){
         var width = $( document ).width();
         native_li.style.transform = 'translateX(' + e.deltaX + 'px)';
-        console.log("delta X:   " + e.deltaX + "  window: " + width);
 
         if (width < 2 * e.deltaX && !value.done) {
             native_li.style.backgroundColor = 'rgba(67, 221, 54, 0.4)';
@@ -308,11 +301,6 @@ function getTaskListElement(value, key) {
 
     hammer_manager.on("swipeend panend", function(e){
         var width = $( document ).width();
-        console.log(e);
-        console.log("DIRECTION:  " + e.direction);
-        console.log("lef is:" + Hammer.DIRECTION_LEFT + " and right is  " + Hammer.DIRECTION_RIGHT);
-        console.log("delta x is: " + e.deltaX);
-
 
         if (width < -2 * e.deltaX && e.overallVelocityX > -1.0) { // swipe left, delete Task
             $(native_li).fadeOut("slow", function() {
@@ -323,7 +311,10 @@ function getTaskListElement(value, key) {
 
         } else if (!value.done && width < 2 * e.deltaX && e.overallVelocityX < 1.0) { // swipe right, mark Task DONE
             hammer_manager.remove("pan swipe");
-            updateTask(key, "done", true);
+
+            finishTask(key, value.title, value.a_time_effort);
+            $(native_li).fadeOut("fast", function() { $(native_li).css("transform", "").css("background-color", "").css("border-color", "").fadeIn('fast'); });
+
         } else {
             // reset otherwise
             $(native_li).fadeOut("fast", function() { $(native_li).css("transform", "").css("background-color", "").css("border-color", "").fadeIn('fast'); });
@@ -346,23 +337,84 @@ function getTaskListElement(value, key) {
     hammer_manager.on("press", function(e){
         var width = $( document ).width();
         if (width > Math.abs(3 * e.deltaX)) {
-            updateTask(key, "title", "entry updated.");
+
+// TODO check whether update was done or not, result is undefined - need to fix this
+            $.when(updateTask(key, "title", "entry updated.")).then(function(result){
+
+                displayActionSuccess("Task updated successfully.");
+                // TODO: only update this one list element!
+                updateTaskListView()
+            });
+
         }
     });
 
     return list_item;
 }
 
+function finishTask(key, title, invested_time_s) {
+    resetFinishTaskForm();
+    $("#rate_task_title").text("'" + title + "'");
+    var view_to_show = $("#rate_and_check_task");
+    $("#add-task-footer").hide(100);
+    $(".view:visible").hide(250);
+    view_to_show.show(200);
+    var a_time_effort = $('#f_a_duration2');
+    a_time_effort.val(toDurationString(invested_time_s));
+    a_time_effort.data('seconds', invested_time_s);
+
+
+    $("div[name='rate-task-button']").click(function(evt) {
+
+        //1. get and show view id="rate_and_check_task
+        // before showing add the task title to legend id="rate_task_title"
+
+        // next get the current invested time, add the seconds to data-seconds attr
+        // and add the parsed value as placeholder or value
+
+        // next is the button submit (and reset or cancel, which returns to the view without marking task as done)
+
+        // TODO CHECK IF ALL THE UPDATES WERE SUCCESSFUL
+        // 1. update that task is done
+        var a_satisfaction = $( "input:radio[name=f_a_satisfaction]:checked" ).val();
+        var difficulty = $("#f_a_difficulty").data("difficulty");
+        var a_time = $('#f_a_duration2').data("seconds");
+
+        $.when(updateTask(key, "done", true), updateTask(key, "a_satisfaction", a_satisfaction), updateTask(key, "a_difficulty", difficulty), updateTask(key, "a_time_effort", a_time)).then(function (result) {
+
+            displayActionSuccess("Task is now done successfully.");
+            // TODO: only update this one list element!
+            updateTaskListView()
+        });
+    });
+    // 2. update rating for satisfaction, time and difficulty
+
+    // tODOD rewrite updateTask so i can give an array with stuff to update
+}
+
+function resetFinishTaskForm(){
+    console.log("reset FINSIH task form");
+    document.getElementById('form_rate_task').reset();
+    var duration_field = $("#f_a_duration2");
+    duration_field.val("");
+    duration_field.data("seconds", 0);
+    draw_difficulty_pyramid($("#f_a_difficulty").find(".trapez"), 0);
+}
+
+function resetAddTaskForm(){
+    console.log("reset addd task form");
+    document.getElementById('form_add_task').reset();
+    var duration_field = $("#f_duration");
+    duration_field.val("");
+    duration_field.data("seconds", 0);
+    draw_difficulty_pyramid($("#f_p_difficulty").find(".trapez"), 0);
+}
+
 function updateTaskListView(store) {
-    console.log("display task list");
+
     if (typeof store == 'undefined') {
         store = getObjectStore(DB_STORE_NAME, 'readonly');
-        console.log(store);
-    } else {
-        console.log("not undefined");
-        console.log(store);
     }
-
 
     // get list and empty list to remove previous content
     var ul_tasks = $('#ul_tasks');

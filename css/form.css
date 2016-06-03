@@ -147,6 +147,9 @@ input[type=radio]{
     border-radius: 10px;
     color: #0f7394;
 }
+.radio-inline > input:not(:checked) + div {
+    opacity: 0.25;
+}
 
 .radio-inline > input:not(:checked) + span {
     opacity: 0.25;
@@ -156,32 +159,33 @@ input[type=radio]{
     background-color: rgba(208, 221, 43, 0.33);
 }
 
+
 .radio-inline > input:checked + span {
     font-weight: 600;
 }
 
-#f_p_difficulty > .trapez {
+label +  .difficulty > .trapez {
     margin-top: 7px;
     border-bottom-width: 15px;
 }
 
-#f_p_difficulty > .trapez_1 {
+label +  .difficulty > .trapez_1 {
     width: 25px;
 }
 
-#f_p_difficulty > .trapez_2 {
+label + .difficulty > .trapez_2 {
     width: 50px;
 }
 
-#f_p_difficulty > .trapez_3 {
+label +  .difficulty > .trapez_3 {
     width: 75px;
 }
 
-#f_p_difficulty > .trapez_4 {
+label + .difficulty > .trapez_4 {
     width: 100px;
 }
 
-#f_p_difficulty > .trapez_5 {
+label + .difficulty > .trapez_5 {
     width: 125px;
 }
 
