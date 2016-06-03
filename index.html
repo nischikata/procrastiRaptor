@@ -343,6 +343,16 @@
 
                     </div>
                 </div>
+                </fieldset>
+            <div name="add-task-button" class="btn btn-primary" data-view="add_task_view">add Task NOW</div>
+            <div name="reset-task-form" class="btn btn-default" data-view="list_view">cancel</div>
+            <div class="filler"></div>
+            <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>WAIT! there's optional stuff...</legend>
+
+
 
                 <!-- Text input --- ACTUAL DURATION / INVESTED TIME -->
                 <div class="form-group">
@@ -396,8 +406,200 @@
                 </div>
 
             </fieldset>
-            <div name="add-task-button" class="btn btn-primary" data-view="add_task_view">add Task</div>
+            <div name="add-task-button" class="btn btn-primary" data-view="add_task_view">that's all, add Task</div>
             <div name="reset-task-form" class="btn btn-default" data-view="list_view">cancel</div>
+        </form>
+
+    </main>
+</div>
+
+
+<div id="edit_task_view" class="view">
+    <header>
+        <h2></h2>
+
+    </header>
+
+
+
+    <main>
+
+
+        <form id="edit_task" class="form-horizontal">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Edit Task</legend>
+
+                <!-- ---- TASK TITLE -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="e_title">Title</label>
+                    <div class="col-md-4">
+                        <input id="e_title" name="e_title" placeholder="Task Title" class="form-control input-md" required="" type="text">
+
+                    </div>
+                </div>
+<div id="e_difficulty" class="form-group">
+                <!-- Multiple Radios --- PREDICTED DIFFICULTY-->
+                <div class="compare col-md-4">
+                    <label class="edit_label" for="e_p_difficulty">Predicted Difficulty</label>
+                    <div id="e_p_difficulty" class="difficulty" data-difficulty="0">
+                        <div name="5" class="trapez trapez_1 grey"></div>
+                        <div name="4" class="trapez trapez_2 grey"></div>
+                        <div name="3" class="trapez trapez_3 grey"></div>
+                        <div name="2" class="trapez trapez_4 grey"></div>
+                        <div name="1" class="trapez trapez_5 grey"></div>
+                    </div>
+                </div>
+                <!-- Multiple Radios --- ACTUAL DIFFICULTY-->
+                <div class="compare col-md-4 e_done">
+                    <label class="edit_label" for="e_a_difficulty">Actual Difficulty</label>
+                    <div id="e_a_difficulty" class="difficulty" data-difficulty="0">
+                        <div name="5" class="trapez trapez_1 grey"></div>
+                        <div name="4" class="trapez trapez_2 grey"></div>
+                        <div name="3" class="trapez trapez_3 grey"></div>
+                        <div name="2" class="trapez trapez_4 grey"></div>
+                        <div name="1" class="trapez trapez_5 grey"></div>
+                    </div>
+                </div>
+</div>
+
+
+
+
+                <!-- Multiple Radios (inline)--- PREDICTED SATISFACTION -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="e_p_satisfaction">Predicted Satisfaction</label>
+                    <div class="col-md-4" id="e_p_satisfaction_group">
+                        <label id="e_p_satisfaction" class="radio-inline" for="e_p_satisfaction-0">
+                            <input name="e_p_satisfaction" id="e_p_satisfaction-0" value="indifferent" type="radio" required>
+                            <div class="satisfaction"><div name="satisfaction_emo" class="indifferent"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_p_satisfaction-1">
+                            <input name="e_p_satisfaction" id="e_p_satisfaction-1" value="glad" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="glad"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_p_satisfaction-2">
+                            <input name="e_p_satisfaction" id="e_p_satisfaction-2" value="wink" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="wink"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_p_satisfaction-3">
+                            <input name="e_p_satisfaction" id="e_p_satisfaction-3" value="laughing" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="laughing"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_p_satisfaction-4">
+                            <input name="e_p_satisfaction" id="e_p_satisfaction-4" value="king" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="king"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_p_satisfaction-5">
+                            <input name="e_p_satisfaction" id="e_p_satisfaction-5" value="pirate" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="pirate"></div></div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Text input --- PREDICTED DURATION / EFFORT IN TIME -->
+
+<div id="e_time_effort" class="form-group">
+    <!-- Text input --- ACTUAL DURATION / INVESTED TIME -->
+    <div class="compare">
+        <label class="col-md-4 control-label" for="e_a_duration">Already invested Time</label>
+        <div class="col-md-4">
+            <input id="e_a_duration" name="e_a_duration" placeholder="0m" data-seconds="0" class="duration form-control input-md" type="text">
+
+        </div>
+    </div>
+                <div class="compare">
+                    <label class="col-md-4 control-label" for="e_duration">Predicted Total Effort in Time</label>
+                    <div class="col-md-4">
+                        <input id="e_duration" name="e_duration" placeholder="1d 4h 10m" data-seconds="0" class="duration form-control input-md" type="text">
+
+                    </div>
+                </div>
+
+
+
+</div>
+
+                <!-- Text input --- DUE DATE TIME -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="e_duedatetime">Due</label>
+                    <div class="col-md-4">
+                        <input type="datetime" id="e_duedatetime" name="e_duedatetime" placeholder="" class="form-control input-md" type="text">
+
+                    </div>
+                </div>
+
+                <!-- Multiple Radios (inline) --- PRIORITY -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="e_priority">Priority</label>
+                    <div id="e_priority" class="col-md-4">
+                        <label class="radio-inline" for="e_priority-0">
+                            <input name="e_priority" id="e_priority-0" value="1" type="radio">
+                            <span>High</span>
+                        </label>
+                        <label class="radio-inline" for="e_priority-1">
+                            <input name="e_priority" id="e_priority-1" value="2" type="radio">
+                            <span>Medium</span>
+                        </label>
+                        <label class="radio-inline" for="e_priority-2">
+                            <input name="e_priority" id="e_priority-2" value="3" type="radio">
+                            <span>Low</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Select Basic --- CATEGORY / LABEL -->
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="e_category">Label</label>
+                    <div class="col-md-4">
+                        <select id="e_category" name="e_category" class="form-control">
+                            <option value="default">None</option>
+                            <option value="health">Health</option>
+                            <option value="home">Home</option>
+                            <option value="work">Work</option>
+                            <option value="school">School</option>
+                        </select>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset id="edit_done">
+
+
+
+                <!-- Multiple Radios (inline)--- ACTUAL SATISFACTION -->
+                <div class="form-group e_done">
+                    <label class="col-md-4 control-label" for="e_a_satisfaction">Actual Satisfaction</label>
+                    <div class="col-md-4" id="e_a_satisfaction_group">
+                        <label id="e_a_satisfaction" class="radio-inline" for="e_a_satisfaction-0">
+                            <input name="e_a_satisfaction" id="e_a_satisfaction-0" value="indifferent" type="radio" required>
+                            <div class="satisfaction"><div name="satisfaction_emo" class="indifferent"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_a_satisfaction-1">
+                            <input name="e_a_satisfaction" id="e_a_satisfaction-1" value="glad" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="glad"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_a_satisfaction-2">
+                            <input name="e_a_satisfaction" id="e_a_satisfaction-2" value="wink" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="wink"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_a_satisfaction-3">
+                            <input name="e_a_satisfaction" id="e_a_satisfaction-3" value="laughing" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="laughing"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_a_satisfaction-4">
+                            <input name="e_a_satisfaction" id="e_a_satisfaction-4" value="king" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="king"></div></div>
+                        </label>
+                        <label class="radio-inline" for="e_a_satisfaction-5">
+                            <input name="e_a_satisfaction" id="e_a_satisfaction-5" value="pirate" type="radio">
+                            <div class="satisfaction"><div name="satisfaction_emo" class="pirate"></div></div>
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
+            <div name="close-edit" class="btn btn-default" data-view="list_view">cancel</div>
         </form>
 
     </main>

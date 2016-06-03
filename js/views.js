@@ -11,7 +11,8 @@ $("[data-view]").each(function(){ // select all navigation elements incl. add ta
         $(this).addClass("active");
 
 
-        if (view_id == "#add_task_view" || view_id == "#rate_and_check_task") {
+        if (view_id == "#add_task_view" || view_id == "#rate_and_check_task"
+        || view_id == "#edit_task_view") {
             $("#add-task-footer").hide();
         } else {
             $("#add-task-footer").show();

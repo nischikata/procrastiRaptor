@@ -337,14 +337,15 @@ function getTaskListElement(value, key) {
     hammer_manager.on("press", function(e){
         var width = $( document ).width();
         if (width > Math.abs(3 * e.deltaX)) {
+            editTask(key, value);
 
 // TODO check whether update was done or not, result is undefined - need to fix this
-            $.when(updateTask(key, "title", "entry updated.")).then(function(result){
+            /*$.when(updateTask(key, "title", "entry updated.")).then(function(result){
 
                 displayActionSuccess("Task updated successfully.");
                 // TODO: only update this one list element!
                 updateTaskListView()
-            });
+            });*/
 
         }
     });
@@ -352,6 +353,57 @@ function getTaskListElement(value, key) {
     return list_item;
 }
 
+
+function editTask(key, task) {
+    var view_to_show = $("#edit_task_view");
+    $("#add-task-footer").hide(100);
+    $(".view:visible").hide(250);
+    view_to_show.show(200);
+
+
+
+    $('#e_title').val(task.title);
+    // predicted and actual difficulty
+    var p_trapezes = $('#e_p_difficulty').find(".trapez");
+    draw_difficulty_pyramid(p_trapezes, task.p_difficulty);
+    $('#e_p_difficulty').data("difficulty", task.p_difficulty);
+
+    var a_trapezes = $('#e_a_difficulty').find(".trapez");
+    draw_difficulty_pyramid(a_trapezes, task.a_difficulty);
+    $('#e_a_difficulty').data("difficulty", task.a_difficulty);
+    // predicted satisfaction
+    $("input[name='e_p_satisfaction']").val([task.p_satisfaction]);
+    $("input[name='e_a_satisfaction']").val([task.a_satisfaction]);
+
+
+    var p_time_effort = $('#e_p_duration');
+    p_time_effort.val(toDurationString(task.p_time_effort));
+    p_time_effort.data('seconds', task.p_time_effort);
+
+    var a_time_effort = $('#e_a_duration');
+    a_time_effort.val(toDurationString(task.a_time_effort));
+    a_time_effort.data('seconds', task.a_time_effort);
+
+    $('#e_duedatetime').val(task.duedate);
+    console.log("task priority is   " + task.priority);
+    var priority= $("input[name='e_priority']").val([task.priority]);
+
+    $('#e_category').val([task.category]);
+
+    if (!task.done) {
+        //TODO maybe delete this
+        // hide ratings for undone tasks
+        view_to_show.find(".e_done").each(function(){
+            $(this).hide();
+        });
+    }
+}
+
+
+
+
+// once a task is swiped right to mark it as done
+// the user can rate his experience
 function finishTask(key, title, invested_time_s) {
     resetFinishTaskForm();
     $("#rate_task_title").text("'" + title + "'");
