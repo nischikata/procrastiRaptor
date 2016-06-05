@@ -12,6 +12,7 @@ function openDb() {
     req.onsuccess = function (evt) {
         db = this.result;
         console.log("openDb DONE");
+
         updateTaskListView();
 
     };
@@ -108,49 +109,7 @@ function getTask2(key, store, success_callback) {
         }
     };
 }
-/**
- * @param {number} key
- * @param {string} mode
- *
- */
-function getTask(key, mode) {
 
-
-}
-
-/**
- * @param {number} key
- * @param {string} name
- * @param value
- */
-function updateTask(key, name, value){
-
-    var store = getObjectStore(DB_STORE_NAME, 'readwrite');
-
-    var request = store.get(key);
-    request.onerror = function(event) {
-        return false;
-    };
-    request.onsuccess = function(event) {
-
-        // Get the old value that we want to update
-       var data = request.result;
-
-        // update the value(s) in the object that you want to change
-        data[name] = value;
-
-        // Put this updated object back into the database.
-        var requestUpdate = store.put(data);
-        requestUpdate.onerror = function(event) {
-            // Do something with the error
-            return false;
-        };
-        requestUpdate.onsuccess = function(event) {
-            // Success - the data is updated!
-            return true;
-        };
-    };
-}
 
 /**
  * @param {number} key
@@ -159,6 +118,7 @@ function updateTask(key, name, value){
 function updateTaskElems(key, updatedElems) {
     var store = getObjectStore(DB_STORE_NAME, 'readwrite');
 
+    console.log("this is the key in updateTaskElems: ", key);
     var request = store.get(key);
     request.onerror = function(event) {
         return false;
@@ -196,6 +156,9 @@ function updateTaskElems(key, updatedElems) {
  * @param {IDBObjectStore=} store
  */
 function removeTask(key, store) {
+
+    if (key == undefined)
+    return;
 
     if (typeof store == 'undefined')
         store = getObjectStore(DB_STORE_NAME, 'readwrite');
@@ -463,6 +426,9 @@ function getTaskListElement(value, key) {
 
 
 function editTask(key, task) {
+    if (key == undefined)
+        return;
+
     var view_to_show = $("#edit_task_view");
     $("#edit_task_view").data('key', key);
 
@@ -511,6 +477,8 @@ function editTask(key, task) {
 // once a task is swiped right to mark it as done
 // the user can rate his experience
 function finishTask(key, task) {
+    if (key == undefined)
+        return;
     resetFinishTaskForm();
     $("#form_rate_task").data('key', key);
     $("#rate_task_title").text("'" + task.title + "'");
@@ -597,6 +565,203 @@ function updateTaskListView(store) {
            // console.log("No more entries");
         }
     };
+
+    getMostImportantTasks();
+}
+
+function getMostImportantTasks(){
+    var store = getObjectStore(DB_STORE_NAME, 'readonly');
+
+
+    // get list and empty list to remove previous content
+    var ul_tasks = $('#ul_startview_tasks');
+    ul_tasks.empty();
+
+
+    var allTasks = [];
+    var req = store.openCursor();
+    req.onsuccess = function(evt) {
+        var cursor = evt.target.result;
+        if (cursor) {
+            var key = cursor.key;
+            var task = cursor.value;
+            if (!task.done) { // only add unfinished tasks to top priority
+                var obj = { key: key, task: task };
+                allTasks.push(obj);
+            }
+            cursor.continue();
+
+        } else {
+            // now all tasks are in the array, lets sort them
+            // by priority,
+            //and add those 3 like this:\
+
+            if (allTasks.length > 0) { // there are tasks to show
+
+                var sortedArray = allTasks.sort(comparePriority);
+
+
+                for (var i = 0; i < 3 && i < sortedArray.length; ++i) {
+                    var key = sortedArray[i].key;
+                    var task = sortedArray[i].task;
+                    var list_item = getTaskListElement(task, key);
+                    ul_tasks.append(list_item);
+                }
+            } else {
+
+                var task = { title: "Add a new task", notes: "", category: "default", duedate: "",
+                    p_difficulty:  1, p_satisfaction:  "laughing", p_time_effort: 60, priority: 2, ranking: null,
+                    a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: false };
+
+
+                var empty_list_item = getTaskListElement(task, undefined);
+                ul_tasks.append(empty_list_item);
+            }
+        }
+
+
+    }
+
+
+
+}
+
+function comparePriority (a, b) {
+    console.log("sorting: " + a.task.title + "  vs " + b.task.title);
+    return a.task.priority > b.task.priority;
+
+}
+
+function compareDueness (a, b) {
+
+    return a.task.duedate > b.task.duedate;
+
+}
+
+/**
+ * Randomize array element order in-place.
+ * Using Durstenfeld shuffle algorithm.
+ */
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+}
+
+function getRandomTasks(){
+
+    var store = getObjectStore(DB_STORE_NAME, 'readonly');
+
+
+    // get list and empty list to remove previous content
+    var ul_tasks = $('#ul_startview_tasks');
+    ul_tasks.empty();
+
+
+    var allTasks = [];
+    var req = store.openCursor();
+    req.onsuccess = function(evt) {
+        var cursor = evt.target.result;
+        if (cursor) {
+            var key = cursor.key;
+            var task = cursor.value;
+            if (!task.done) { // only add unfinished tasks to top priority
+                var obj = { key: key, task: task };
+                allTasks.push(obj);
+            }
+            cursor.continue();
+
+        } else {
+            // now all tasks are in the array, lets sort them
+            // by priority,
+            //and add those 3 like this:\
+
+            if (allTasks.length > 0) { // there are tasks to show
+
+                var sortedArray = shuffleArray(allTasks);
+
+
+                for (var i = 0; i < 3 && i < sortedArray.length; ++i) {
+                    var key = sortedArray[i].key;
+                    var task = sortedArray[i].task;
+                    var list_item = getTaskListElement(task, key);
+                    ul_tasks.append(list_item);
+                }
+            } else {
+                var task = { title: "Add a new task", notes: "", category: "default", duedate: "",
+                    p_difficulty:  3, p_satisfaction:  "pirate", p_time_effort: 60, priority: 0, ranking: null,
+                    a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: false };
+
+
+                var empty_list_item = getTaskListElement(task, undefined);
+                ul_tasks.append(empty_list_item);
+            }
+        }
+
+
+    }
+
+}
+
+function getTasksByCategory(category){
+    var store = getObjectStore(DB_STORE_NAME, 'readonly');
+
+
+    // get list and empty list to remove previous content
+    var ul_tasks = $('#ul_startview_tasks');
+    ul_tasks.empty();
+
+
+    var allTasks = [];
+    var req = store.openCursor();
+    req.onsuccess = function(evt) {
+        var cursor = evt.target.result;
+        if (cursor) {
+            var key = cursor.key;
+            var task = cursor.value;
+            if (!task.done && task.category == category) { // only add unfinished tasks to top priority
+                var obj = { key: key, task: task };
+                allTasks.push(obj);
+            }
+            cursor.continue();
+
+        } else {
+            // now all tasks are in the array, lets sort them
+            // by priority,
+            //and add those 3 like this:\
+
+            if (allTasks.length > 0) { // there are tasks to show
+
+                var sortedArray = allTasks.sort(comparePriority);
+
+
+                for (var i = 0; i < 3 && i < sortedArray.length; ++i) {
+                    var key = sortedArray[i].key;
+                    var task = sortedArray[i].task;
+                    var list_item = getTaskListElement(task, key);
+                    ul_tasks.append(list_item);
+                }
+            } else {
+
+                var task = { title: "Add a new task", notes: "", category: category, duedate: "",
+                    p_difficulty:  1, p_satisfaction:  "laughing", p_time_effort: 60, priority: 2, ranking: null,
+                    a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: false };
+
+
+                var empty_list_item = getTaskListElement(task, undefined);
+                ul_tasks.append(empty_list_item);
+            }
+        }
+
+
+    }
+
+
+
 }
 
 openDb();

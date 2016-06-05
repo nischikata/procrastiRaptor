@@ -82,6 +82,18 @@ $(function() {
     select_difficulty("#e_p_difficulty");
     select_difficulty("#e_a_difficulty");
 
+    $("#decision_helper").change(function(){
+        var selection = $('#decision_helper').val();
+
+        if (selection == "random") {
+            getRandomTasks();
+        } else if (selection == "important") {
+            getMostImportantTasks();
+        } else {
+            getTasksByCategory(selection);
+        }
+    });
+
  });
 
 function select_difficulty(id) {

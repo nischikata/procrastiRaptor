@@ -278,3 +278,7 @@ label + .difficulty > .trapez_5 {
     border-radius: 12px;
     padding-bottom: 10px;
 }
+
+#decision_helper {
+    display: inline-block;
+}
