@@ -508,3 +508,12 @@ a:hover {
     font-size: 18px;
     color: rgb(15, 115, 148);
 }
+
+.coming_soon {
+    padding-top: 50px;
+    margin: auto;
+    text-align: center;
+    font-family: "proxima-nova", "open-sans", "Calibri", Helvetica, sans-serif;
+    font-size: 17px;
+    color: rgba(170, 183, 44, 0.8);
+}

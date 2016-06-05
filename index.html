@@ -3,7 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>ProcrastiRaptor - Welcome !</title>
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" media="all" rel="stylesheet" type="text/css">
     <link href="css/form.css" rel="stylesheet" type="text/css">
 
@@ -24,7 +24,7 @@
     <header>
         <div class="bubble">
             <div class="filler"></div>
-            <div class="greeting"><h1>Hi-Diddily-Ho Champ!</h1>
+            <div class="greeting"><h1>Hi-Diddily-Ho <span id="start_username">Champ</span>!</h1>
 
                 <!-- Select Basic --- CATEGORY / LABEL -->
                 <div>
@@ -45,107 +45,7 @@
     </header>
 
     <main>
-        <ul class="tasks" id="ul_startview_tasks">
-
-            <li class="task cat_work">
-                <div class="top_row">
-                    <div class="duetime">
-                        <div>2d10m</div>
-                        <div class="description">due in</div>
-                    </div>
-                    <div class="task_title"><h2>html & css code for HUE mockup procrastiRaptor</h2></div>
-                </div>
-                <div class="bottom_row">
-                    <div class="difficulty">
-                        <div class="trapez trapez_1 grey"></div>
-                        <div class="trapez trapez_2 grey"></div>
-                        <div class="trapez trapez_3"></div>
-                        <div class="trapez trapez_4"></div>
-                        <div class="trapez trapez_5"></div>
-                        <div class="description">difficulty</div>
-                    </div>
-                    <div class="satisfaction">
-                        <div class="king"></div>
-                        <span class="description">satisfaction</span></div>
-                    <div class="effort">
-                        <div class="invested right"><span>5d</span>
-
-                            <div class="description right">invested</div>
-                        </div>
-                        <div class="predicted"><span>2d 3h</span>
-
-                            <div class="description">predicted</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-
-            <li class="task cat_sport">
-                <div class="top_row">
-                    <div class="duetime">
-                        <div>7w1d</div>
-                        <div class="description">due in</div>
-                    </div>
-                    <div class="task_title"><h2>find b-day present for husband</h2></div>
-                </div>
-                <div class="bottom_row">
-                    <div class="difficulty">
-                        <div class="trapez trapez_1"></div>
-                        <div class="trapez trapez_2"></div>
-                        <div class="trapez trapez_3"></div>
-                        <div class="trapez trapez_4"></div>
-                        <div class="trapez trapez_5"></div>
-                        <div class="description">difficulty</div>
-                    </div>
-                    <div class="satisfaction">
-                        <div class="glad"></div>
-                        <span class="description">satisfaction</span></div>
-                    <div class="effort">
-                        <div class="invested right"><span>0</span>
-
-                            <div class="description right">invested</div>
-                        </div>
-                        <div class="predicted"><span>1d</span>
-
-                            <div class="description">predicted</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-            <li class="task">
-                <div class="top_row">
-                    <div class="duetime">
-                        <div>12w</div>
-                        <div class="description">due in</div>
-                    </div>
-                    <div class="task_title"><h2>paint kitchen</h2></div>
-                </div>
-                <div class="bottom_row">
-                    <div class="difficulty">
-                        <div class="trapez trapez_1 grey"></div>
-                        <div class="trapez trapez_2 grey"></div>
-                        <div class="trapez trapez_3 grey"></div>
-                        <div class="trapez trapez_4 grey"></div>
-                        <div class="trapez trapez_5"></div>
-                        <div class="description">difficulty</div>
-                    </div>
-                    <div class="satisfaction">
-                        <div class="indifferent"></div>
-                        <span class="description">satisfaction</span></div>
-                    <div class="effort">
-                        <div class="invested right"><span>35min</span>
-
-                            <div class="description right">invested</div>
-                        </div>
-                        <div class="predicted"><span>5h</span>
-
-                            <div class="description">predicted</div>
-                        </div>
-                    </div>
-                </div>
-            </li>
+        <ul class="tasks" id="ul_startview_tasks"> empty
         </ul>
 
 
@@ -169,28 +69,13 @@
 
 
 <div id="calendar_view" class="view">
-    <header><h1>Calendar</h1></header>
-    <main><p>nothing to show yet</p></main>
+
+    <main><p class="coming_soon">Calendar coming soon...</p></main>
 </div>
 
 
 <div id="stats_view" class="view">
-    <header><h1>Stats</h1>
-    </header>
-
-    <main style="margin-left: 14px;">
-        <h3>Time management</h3>
-        <figure id="pie-chart-3colors">
-            <svg width="100" height="100">
-                <circle r="24.5" cx="50" cy="50" fill="none" stroke="#67cddc" stroke-width="50"
-                        stroke-dasharray="158 158"/>
-                <circle r="25" cx="50" cy="50" fill="none" stroke="white" stroke-width="50" stroke-dasharray="32 158"/>
-            </svg>
-        </figure>
-        <div><span style="background-color: #67cddc; width: 5px; height: 5px;"> &nbsp; </span> &nbsp; finished on time
-        </div>
-        <div><span style="background-color: white; width: 5px; height: 5px;"> &nbsp; </span> &nbsp; finished late</div>
-    </main>
+    <main><p class="coming_soon">Stats coming soon...</p></main>
 </div>
 
 <div id="rate_and_check_task" class="view">
@@ -292,9 +177,9 @@
         <div class="bubble">
             <div class="filler"></div>
             <div class="greeting">
-                <h1>What's up <a href="#">Michonne</a>?</h1>
+                <h1>What's up <span id="username">Michonne</span>?</h1>
 
-                <p>Do you want to change your <a href="#">screen name</a>, <a href="#">email-address</a> or <a href="#">password</a>?
+                <p>Anything you want want to change?</a>?
                 </p>
 
                 <p>Check out the settings below to adjust the app experience to your preferences.</p>
@@ -305,6 +190,27 @@
     <main>
         <h3>Settings</h3>
         <table id="pref">
+            <tr>
+                <td>Screen name</td>
+                <td>
+                    <div class="col-md-4">
+                    <input id="pref_username" name="pref_username" class="form-control input-md" type="text">
+
+</div>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Screen name</td>
+                <td>
+                    <div class="col-md-4">
+                        <input id="pref_email" name="pref_email" class="form-control input-md" type="text">
+
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
                 <td>Notifications for upcoming high priority tasks</td>
                 <td>
                     <div class="onoffswitch">
@@ -329,6 +235,7 @@
                     </label>
                 </div></td>
             </tr>
+
 
         </table>
         <div>
@@ -802,12 +709,12 @@
 
 
     <div class="task task_title add" data-view="add_task_view" id="add-task-footer">
-        <h2>add</h2>
+        <h2>add task</h2>
     </div>
 
 </footer>
 
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/hammer.js"></script>
 <script type="text/javascript" src="js/form.js"></script>
 <script type="text/javascript" src="js/storage.js"></script>

@@ -1,8 +1,10 @@
 /* indexeddb stuff*/
 
 const DB_NAME = "RaptorTasks";
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const DB_STORE_NAME = 'tasks';
+const DB_USER_STORE = 'user';
+var new_db_flag = false;
 
 var db;
 
@@ -13,7 +15,16 @@ function openDb() {
         db = this.result;
         console.log("openDb DONE");
 
+
+
+        if (new_db_flag) {
+            setupFreshDB();
+            new_db_flag = false;
+        }
+
         updateTaskListView();
+        updateUserSettingsView();
+
 
     };
     req.onerror = function (evt) {
@@ -27,8 +38,22 @@ function openDb() {
         store.createIndex('title', 'title', { unique: false });
         store.createIndex('category', 'category', { unique: false });
         store.createIndex('p_time_effort', 'p_time_effort', { unique: false });
+
+        var userstore = evt.currentTarget.result.createObjectStore(DB_USER_STORE, { keyPath: 'id', autoIncrement: true });
+
+        new_db_flag = true;
+
     };
 
+}
+
+function setupFreshDB () {
+    addTask("change username", "", "", "", 1, "pirate", 120, 0, 1);
+    addTask("add a new task", "", "", "", 2, "king", 60, 0, 1);
+
+    // user settings:
+
+    setupUser("GrumpyCat", "cat@grumpymail.com", 1, true);
 }
 
 /**
@@ -38,6 +63,53 @@ function openDb() {
 function getObjectStore(store_name, mode) {
     var tx = db.transaction(store_name, mode);
     return tx.objectStore(store_name);
+}
+
+function setupUser(name, email, due_pref, notifications, key) {
+    var store = getObjectStore(DB_USER_STORE, 'readwrite');
+    var req;
+    var user = { name: name, email: email, due_prefs: due_pref, notifications: notifications};
+
+
+    if (key == undefined) { // create new user
+
+
+
+        try {
+            req = store.add(user);
+        } catch (error) {
+            displayActionFailure(this.error);
+        }
+
+        req.onsuccess = function (event) {
+
+        }
+
+        req.onerror = function() {
+            displayActionFailure(this.error);
+        };
+
+    } else { // update existing user
+
+        req.onerror = function(event) {
+            return false;
+        };
+        req.onsuccess = function(event) {
+
+
+            // Put this updated object back into the database.
+            var requestUpdate = store.put(user);
+            requestUpdate.onerror = function(event) {
+                // Do something with the error
+                return false;
+            };
+            requestUpdate.onsuccess = function(event) {
+                // Success - the data is updated!
+                return true;
+            };
+        };
+    }
+
 }
 
 
@@ -62,9 +134,7 @@ function addTask(title, notes, category, duedate, difficulty, satisfaction, p_ti
 
         //reset form
         resetAddTaskForm();
-
         displayActionSuccess("New Task \'" + title + "\' added successfully.");
-        updateTaskListView();
     }
 
     req.onerror = function() {
@@ -118,7 +188,6 @@ function getTask2(key, store, success_callback) {
 function updateTaskElems(key, updatedElems) {
     var store = getObjectStore(DB_STORE_NAME, 'readwrite');
 
-    console.log("this is the key in updateTaskElems: ", key);
     var request = store.get(key);
     request.onerror = function(event) {
         return false;
@@ -144,6 +213,47 @@ function updateTaskElems(key, updatedElems) {
         };
         requestUpdate.onsuccess = function(event) {
             // Success - the data is updated!
+            displayActionSuccess("Task updated!");
+            return true;
+        };
+    };
+
+}
+
+
+/**
+ * @param {number} key
+ * @param {array} updatedElems
+ */
+function updateUserElems(key, updatedElems) {
+    var store = getObjectStore(DB_USER_STORE, 'readwrite');
+
+    var request = store.get(key);
+    request.onerror = function(event) {
+        return false;
+    };
+    request.onsuccess = function(event) {
+
+        // Get the old value that we want to update
+        var data = request.result;
+
+        for(var index in updatedElems)
+        {
+            data[index] = updatedElems[index];
+        }
+
+        // update the value(s) in the object that you want to change
+
+
+        // Put this updated object back into the database.
+        var requestUpdate = store.put(data);
+        requestUpdate.onerror = function(event) {
+            // Do something with the error
+            return false;
+        };
+        requestUpdate.onsuccess = function(event) {
+            // Success - the data is updated!
+            displayActionSuccess("User settings updated.");
             return true;
         };
     };
@@ -214,7 +324,10 @@ function addEventListeners(){
 
         var priority = $( "input:radio[name=f_priority]:checked" ).val();
 
-        //TODO VALIDATION
+
+        if (priority == undefined) {
+            priority = 5;
+        }
 
         var notes = "none";
 
@@ -240,7 +353,25 @@ function addEventListeners(){
 
     });
 
+    $("#pref_username").change(function(evt){
 
+       var key = $(this).data("key");
+        var username = $(this).val();
+        var arr = {};
+        arr["name"] = username;
+        updateUserElems(key, arr);
+        updateUserSettingsView();
+
+
+    });
+    $("#pref_email").change(function(evt){
+        var key = $("#pref_username").data("key");
+        var arr = {};
+        arr["email"] = $(this).val();
+        updateUserElems(key, arr);
+        //updateUserSettingsView();
+
+    });
 
 }
 
@@ -251,14 +382,9 @@ function saveRatings() {
     updatedElems["a_difficulty"] = $("#f_a_difficulty").data("difficulty");
     updatedElems["a_time_effort"] = $('#f_a_duration2').data("seconds");
 
-    var key = $("#edit_task_view").data('key');
+    var key = $("#form_rate_task").data('key');
 
-    $.when(updateTaskElems(key, updatedElems)).then(function (result) {
-
-        displayActionSuccess("Task DONE!");
-        // TODO: only update this one list element!
-        updateTaskListView();
-    });
+    updateTaskElems(key, updatedElems);
 }
 
 function saveEdits() {
@@ -300,7 +426,7 @@ function saveEdits() {
     updatedElems["done"] = done;
     var key = $("#edit_task_view").data('key');
     updateTaskElems(key, updatedElems);
-    updateTaskListView();
+    //updateTaskListView();
 
 }
 
@@ -444,7 +570,7 @@ function editTask(key, task) {
     $('#e_p_difficulty').data("difficulty", task.p_difficulty);
 
     var a_trapezes = $('#e_a_difficulty').find(".trapez");
-    console.log("edit task, a difficulty :" + task.a_difficulty);
+
     draw_difficulty_pyramid(a_trapezes, task.a_difficulty);
     $('#e_a_difficulty').data("difficulty", task.a_difficulty);
     // predicted satisfaction
@@ -473,7 +599,6 @@ function editTask(key, task) {
 
 
 
-
 // once a task is swiped right to mark it as done
 // the user can rate his experience
 function finishTask(key, task) {
@@ -489,11 +614,9 @@ function finishTask(key, task) {
     var a_time_effort = $('#f_a_duration2');
     a_time_effort.val(toDurationString(task.a_time_effort));
     a_time_effort.data('seconds', task.a_time_effort);
-    console.log(task);
 
 
     var a_trapezes = $('#f_a_difficulty').find(".trapez");
-    console.log("actual difficulty is: " + task.a_difficulty);
     draw_difficulty_pyramid(a_trapezes, task.a_difficulty);
     $('#f_a_difficulty').data("difficulty", task.a_difficulty);
     // predicted satisfaction
@@ -522,60 +645,58 @@ function resetAddTaskForm(){
     draw_difficulty_pyramid($("#f_p_difficulty").find(".trapez"), 0);
 }
 
-function updateTaskListView(store) {
+function updateUserSettingsView() {
 
-    if (typeof store == 'undefined') {
-        store = getObjectStore(DB_STORE_NAME, 'readonly');
-    }
+    var store = getObjectStore(DB_USER_STORE, 'readonly');
 
-    // get list and empty list to remove previous content
-    var ul_tasks = $('#ul_tasks');
-    ul_tasks.empty();
-
-
-    var i = 0;
-    var req;
-    req = store.count();
-    req.onsuccess = function(evt) {
-        // console.log('There are' + evt.target.result + ' record(s) in the object store.');
-    };
+    var startview_username = $("#start_username");
+    var prefs_username = $("#username");
+    var input_username = $("#pref_username");
+    var input_email = $("#pref_email");
 
     req = store.openCursor();
     req.onsuccess = function(evt) {
         var cursor = evt.target.result;
-        // If the cursor is pointing at something, ask for the data
         if (cursor) {
-           // console.log("updateTaskListView cursor:", cursor);
             req = store.get(cursor.key);
             req.onsuccess = function (evt) {
                 var key = cursor.key;
-                var value = evt.target.result;
 
-                var list_item = getTaskListElement(value, key);
+                var user = evt.target.result;
 
-                ul_tasks.append(list_item);
-            };
+                var username = user.name;
+                startview_username.text(username);
+                prefs_username.text(username);
+                input_username.data("key", key);
+                input_username.val(username);
+                input_email.val(user.email);
+                            };
 
             // Move on to the next object in store
             cursor.continue();
 
-            // This counter serves only to create distinct ids
-            i++;
         } else {
-           // console.log("No more entries");
+            // console.log("No more entries");
+
         }
     };
 
-    getMostImportantTasks();
 }
 
-function getMostImportantTasks(){
+function updateTaskListView(store) {
+
+    var view = $('#ul_tasks');
+    getMostImportantTasks(true, view);
+
+    var view = $('#ul_startview_tasks');
+    getMostImportantTasks(false, view);
+}
+
+function getMostImportantTasks(all, view){
     var store = getObjectStore(DB_STORE_NAME, 'readonly');
 
-
     // get list and empty list to remove previous content
-    var ul_tasks = $('#ul_startview_tasks');
-    ul_tasks.empty();
+    view.empty();
 
 
     var allTasks = [];
@@ -585,7 +706,7 @@ function getMostImportantTasks(){
         if (cursor) {
             var key = cursor.key;
             var task = cursor.value;
-            if (!task.done) { // only add unfinished tasks to top priority
+            if (all || !task.done) { // only add unfinished tasks to top priority
                 var obj = { key: key, task: task };
                 allTasks.push(obj);
             }
@@ -598,24 +719,24 @@ function getMostImportantTasks(){
 
             if (allTasks.length > 0) { // there are tasks to show
 
-                var sortedArray = allTasks.sort(comparePriority);
+                var sortedArray = allTasks.sort(compareDone);
 
+                var length = (sortedArray.length < 3 || all) ? sortedArray.length : 3;
 
-                for (var i = 0; i < 3 && i < sortedArray.length; ++i) {
+                for (var i = 0; i < length; ++i) {
                     var key = sortedArray[i].key;
                     var task = sortedArray[i].task;
                     var list_item = getTaskListElement(task, key);
-                    ul_tasks.append(list_item);
+                    view.append(list_item);
                 }
             } else {
-
                 var task = { title: "Add a new task", notes: "", category: "default", duedate: "",
-                    p_difficulty:  1, p_satisfaction:  "laughing", p_time_effort: 60, priority: 2, ranking: null,
+                    p_difficulty:  3, p_satisfaction:  "pirate", p_time_effort: 60, priority: 0, ranking: null,
                     a_difficulty: null, a_satisfaction: null, a_time_effort: 0, done: false };
 
 
                 var empty_list_item = getTaskListElement(task, undefined);
-                ul_tasks.append(empty_list_item);
+                view.append(empty_list_item);
             }
         }
 
@@ -626,10 +747,17 @@ function getMostImportantTasks(){
 
 }
 
-function comparePriority (a, b) {
-    console.log("sorting: " + a.task.title + "  vs " + b.task.title);
-    return a.task.priority > b.task.priority;
+function compareDone (a,b) {
+    if (a.task.done == b.task.done)  {
+        return(comparePriority(a,b));
+    } else if (!a.task.done ){
+        return -1;
 
+    } else return 1;
+}
+
+function comparePriority (a, b) {
+    return a.task.priority > b.task.priority;
 }
 
 function compareDueness (a, b) {

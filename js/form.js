@@ -88,7 +88,8 @@ $(function() {
         if (selection == "random") {
             getRandomTasks();
         } else if (selection == "important") {
-            getMostImportantTasks();
+            var view = $('#ul_tasks');
+            getMostImportantTasks(false, view);
         } else {
             getTasksByCategory(selection);
         }

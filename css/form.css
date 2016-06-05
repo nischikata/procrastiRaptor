@@ -287,3 +287,17 @@ label + .difficulty > .trapez_5 {
     color: rgba(14, 100, 145, 0.9);
     font-weight: bold;
 }
+
+table input[type="text"] {
+    width: 100%;
+    font-size: 18px;
+    appearance: none;
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    color: rgba(14, 100, 145, 0.9);
+    padding-left: 6px;
+}
+input[type="text"]:focus {
+    outline: none;
+}

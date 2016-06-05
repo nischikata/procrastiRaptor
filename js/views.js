@@ -18,6 +18,13 @@ $("[data-view]").each(function(){ // select all navigation elements incl. add ta
             $("#add-task-footer").show();
         }
 
-    })
+        if (view_id == "#list_view" || view_id == "#start_view" ) {
+            updateTaskListView();
+        }
+    });
+
+
+
+
 
 });
