@@ -129,10 +129,7 @@ function updateTask(key, name, value){
 
     var request = store.get(key);
     request.onerror = function(event) {
-        console.log("fail request");
-
         return false;
-
     };
     request.onsuccess = function(event) {
 
@@ -153,6 +150,44 @@ function updateTask(key, name, value){
             return true;
         };
     };
+}
+
+/**
+ * @param {number} key
+ * @param {array} updatedElems
+ */
+function updateTaskElems(key, updatedElems) {
+    var store = getObjectStore(DB_STORE_NAME, 'readwrite');
+
+    var request = store.get(key);
+    request.onerror = function(event) {
+        return false;
+    };
+    request.onsuccess = function(event) {
+
+        // Get the old value that we want to update
+        var data = request.result;
+
+        for(var index in updatedElems)
+        {
+            data[index] = updatedElems[index];
+        }
+
+        // update the value(s) in the object that you want to change
+
+
+        // Put this updated object back into the database.
+        var requestUpdate = store.put(data);
+        requestUpdate.onerror = function(event) {
+            // Do something with the error
+            return false;
+        };
+        requestUpdate.onsuccess = function(event) {
+            // Success - the data is updated!
+            return true;
+        };
+    };
+
 }
 
 
@@ -231,6 +266,57 @@ function addEventListeners(){
     $("div[name='reset-rate-task-form']").click(function(evt) {
         resetFinishTaskForm();
     });
+
+    $("div[name='save-edit']").click(function(evt) {
+        saveEdits();
+    });
+
+
+}
+
+function saveEdits() {
+    var updatedElems = {};
+    var title = $('#e_title').val();
+    if (!title) {
+        console.log("Required field(s) missing");
+        displayActionFailure("Required field(s) missing");
+        return;
+    } else {
+        updatedElems["title"] = title;
+    }
+    var category = $('#e_category').val();
+    updatedElems["category"] = category;
+
+    var date = $('#e_duedatetime').val();
+    updatedElems["duedate"] = date;
+
+    var p_difficulty = $("#e_p_difficulty").data("difficulty");
+    var a_difficulty = $("#a_p_difficulty").data("difficulty");
+    updatedElems["p_difficulty"] = p_difficulty;
+    updatedElems["a_difficulty"] = a_difficulty;
+
+    var p_satisfaction = $( "input:radio[name=e_p_satisfaction]:checked" ).val();
+    var a_satisfaction = $( "input:radio[name=e_a_satisfaction]:checked" ).val();
+    updatedElems["p_satisfaction"] = p_satisfaction;
+    updatedElems["a_satisfaction"] = a_satisfaction;
+
+    var time_effort = $('#e_p_duration').data("seconds");
+    var invested_time = $('#e_a_duration').data("seconds");
+    updatedElems["p_time_effort"] = time_effort;
+    updatedElems["a_time_effort"] = invested_time;
+
+
+    var priority = $( "input:radio[name=e_priority]:checked" ).val();
+    updatedElems["priority"] = priority;
+
+    // TODO returniert anscheinend immer true
+    var done = $('#e_done').prop( "checked" )
+    console.log("Task is done?: " + done);
+    updatedElems["done"] = done;
+    var key = $("#edit_task_view").data('key');
+    updateTaskElems(key, updatedElems);
+    updateTaskListView();
+
 }
 
 function getTaskListElement(value, key) {
@@ -356,10 +442,12 @@ function getTaskListElement(value, key) {
 
 function editTask(key, task) {
     var view_to_show = $("#edit_task_view");
+    $("#edit_task_view").data('key', key);
+    console.log("task p time is: " +task.p_time_effort);
+
     $("#add-task-footer").hide(100);
     $(".view:visible").hide(250);
     view_to_show.show(200);
-
 
 
     $('#e_title').val(task.title);
@@ -385,18 +473,20 @@ function editTask(key, task) {
     a_time_effort.data('seconds', task.a_time_effort);
 
     $('#e_duedatetime').val(task.duedate);
-    console.log("task priority is   " + task.priority);
+
     var priority= $("input[name='e_priority']").val([task.priority]);
 
     $('#e_category').val([task.category]);
 
-    if (!task.done) {
+    if (task.done) {
+        $('#e_done').val([true]);
         //TODO maybe delete this
         // hide ratings for undone tasks
-        view_to_show.find(".e_done").each(function(){
-            $(this).hide();
-        });
+        //view_to_show.find(".e_done").each(function(){
+        //    $(this).hide();
+        //});
     }
+
 }
 
 
@@ -445,7 +535,7 @@ function finishTask(key, title, invested_time_s) {
 }
 
 function resetFinishTaskForm(){
-    console.log("reset FINSIH task form");
+
     document.getElementById('form_rate_task').reset();
     var duration_field = $("#f_a_duration2");
     duration_field.val("");
@@ -454,11 +544,14 @@ function resetFinishTaskForm(){
 }
 
 function resetAddTaskForm(){
-    console.log("reset addd task form");
+
     document.getElementById('form_add_task').reset();
     var duration_field = $("#f_duration");
     duration_field.val("");
     duration_field.data("seconds", 0);
+    var duration_field2 = $("#f_a_duration");
+    duration_field2.val("");
+    duration_field2.data("seconds", 0);
     draw_difficulty_pyramid($("#f_p_difficulty").find(".trapez"), 0);
 }
 

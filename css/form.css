@@ -87,9 +87,18 @@ td:nth-child(odd) {
     font-weight: 300;
     font-size: 15px;
     line-height: 1.2em;
-    width: 400px;
+
     white-space: pre-wrap;
 }
+
+#credits td:nth-child(odd) {
+    vertical-align: top;
+}
+
+#pref td:nth-child(even) {
+    width: 62%;
+}
+
 
 
 #add-task-button {
@@ -197,9 +206,7 @@ label + .difficulty > .trapez_5 {
 #f_p_satisfaction_group { display: flex; justify-content: space-between; }
 #e_difficulty { display: flex; justify-content: space-between; }
 
-.e_done {
-    display: none;
-}
+
 
 .edit_label {
     display: block;

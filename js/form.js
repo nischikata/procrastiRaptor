@@ -76,13 +76,11 @@ $(function() {
         }
     });
 
-    // predicted difficulty setup
+    // difficulty setups for all views
     select_difficulty("#f_p_difficulty");
-
-    // ACTUAL difficulty setup
     select_difficulty("#f_a_difficulty");
-
-
+    select_difficulty("#e_p_difficulty");
+    select_difficulty("#e_a_difficulty");
 
  });
 

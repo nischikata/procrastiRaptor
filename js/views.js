@@ -5,7 +5,7 @@ $("[data-view]").each(function(){ // select all navigation elements incl. add ta
     var view_to_show = $(view_id);
 
     $(this).click(function(){
-        $(".view:visible").hide(250);
+        $(".view:visible").hide(200);
         view_to_show.show(250);
         $(".active").removeClass("active");
         $(this).addClass("active");
