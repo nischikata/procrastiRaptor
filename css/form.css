@@ -44,6 +44,61 @@
     right: 0px;
 }
 
+/*  */
+#doneswitch {
+    padding: 20px;
+}
+
+.doneswitch {
+    position: relative; width: 140px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.doneswitch-checkbox {
+    display: none;
+}
+.doneswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border-radius: 20px;
+}
+.doneswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.doneswitch-inner:before, .doneswitch-inner:after {
+    display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
+    font-size: 16px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    box-sizing: border-box;
+}
+.doneswitch-inner:before {
+    content: "DONE";
+    padding-left: 10px;
+    background-color: rgba(64, 201, 51, 0.6); color: #FFFFFF;
+}
+.doneswitch-inner:after {
+    content: "TO DO";
+    padding-right: 10px;
+    background-color: rgba(223, 231, 184, 1); color: #8c8c8c;
+    text-align: right;
+}
+.doneswitch-switch {
+    display: block; width: 24px; margin: 3px;
+    background: #FFFFFF;
+    position: absolute; top: 0; bottom: 0;
+    right: 110px;
+    border: 2px solid #FFFFFF; border-radius: 50px;
+    transition: all 0.3s ease-in 0s;
+}
+.doneswitch-checkbox:checked + .doneswitch-label .doneswitch-inner {
+    margin-left: 0;
+}
+.doneswitch-checkbox:checked + .doneswitch-label .doneswitch-switch {
+    right: 0px;
+}
+
+/**/
+
+
+
 table {
     margin: 0;
     font-size: 14px; font-family: Trebuchet, Arial, sans-serif;
@@ -205,6 +260,8 @@ label + .difficulty > .trapez_5 {
 
 #f_p_satisfaction_group { display: flex; justify-content: space-between; }
 #e_difficulty { display: flex; justify-content: space-between; }
+#e_p_satisfaction_group { display: flex; justify-content: space-between; }
+#e_a_satisfaction_group { display: flex; justify-content: space-between; }
 
 
 
@@ -214,4 +271,10 @@ label + .difficulty > .trapez_5 {
 
 .compare {
     display: inline-block;
+}
+
+.e_done {
+    background: rgba(255, 255, 255, 0.50);
+    border-radius: 12px;
+    padding-bottom: 10px;
 }

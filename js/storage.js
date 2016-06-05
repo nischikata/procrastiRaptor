@@ -315,7 +315,7 @@ function saveEdits() {
     updatedElems["duedate"] = date;
 
     var p_difficulty = $("#e_p_difficulty").data("difficulty");
-    var a_difficulty = $("#a_p_difficulty").data("difficulty");
+    var a_difficulty = $("#e_a_difficulty").data("difficulty");
     updatedElems["p_difficulty"] = p_difficulty;
     updatedElems["a_difficulty"] = a_difficulty;
 
@@ -478,6 +478,7 @@ function editTask(key, task) {
     $('#e_p_difficulty').data("difficulty", task.p_difficulty);
 
     var a_trapezes = $('#e_a_difficulty').find(".trapez");
+    console.log("edit task, a difficulty :" + task.a_difficulty);
     draw_difficulty_pyramid(a_trapezes, task.a_difficulty);
     $('#e_a_difficulty').data("difficulty", task.a_difficulty);
     // predicted satisfaction
@@ -501,13 +502,7 @@ function editTask(key, task) {
 
     if (task.done) {
         $('#e_done').val([true]);
-        //TODO maybe delete this
-        // hide ratings for undone tasks
-        //view_to_show.find(".e_done").each(function(){
-        //    $(this).hide();
-        //});
     }
-
 }
 
 
@@ -536,8 +531,6 @@ function finishTask(key, task) {
     // predicted satisfaction
 
     $("input[name='f_a_satisfaction']").val([task.a_satisfaction]);
-
-
 }
 
 function resetFinishTaskForm(){

@@ -688,16 +688,7 @@
                 <!-- Text input --- PREDICTED DURATION / EFFORT IN TIME -->
 
                 <div id="e_time_effort" class="form-group">
-                    <!-- Text input --- ACTUAL DURATION / INVESTED TIME -->
-                    <div class="compare">
-                        <label class="col-md-4 control-label" for="e_a_duration">Already invested Time</label>
-
-                        <div class="col-md-4">
-                            <input id="e_a_duration" name="e_a_duration" placeholder="0m" data-seconds="0"
-                                   class="duration form-control input-md" type="text">
-
-                        </div>
-                    </div>
+                    <!-- Text input --- COMPARISON: PREDICTED VS ACTUAL DURATION / INVESTED TIME -->
                     <div class="compare">
                         <label class="col-md-4 control-label" for="e_p_duration">Predicted Total Effort in Time</label>
 
@@ -707,7 +698,15 @@
 
                         </div>
                     </div>
+                    <div class="compare  e_done">
+                        <label class="col-md-4 control-label" for="e_a_duration">Already invested Time</label>
 
+                        <div class="col-md-4">
+                            <input id="e_a_duration" name="e_a_duration" placeholder="0m" data-seconds="0"
+                                   class="duration form-control input-md" type="text">
+
+                        </div>
+                    </div>
 
                 </div>
 
@@ -758,12 +757,18 @@
                 </div>
 
                 <!-- Checkboxes (inline) MARK AS DONE-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="e_done">Done?</label>
-                    <div class="col-md-4">
-                            <input name="e_done" id="e_done" value="true" type="checkbox">
+                <div class="form-group e_done" id="doneswitch">
+                    <div class="doneswitch">
+                        <input type="checkbox" name="e_done" value="true" class="doneswitch-checkbox" id="e_done">
+                        <label class="doneswitch-label" for="e_done">
+                            <span class="doneswitch-inner"></span>
+                            <span class="doneswitch-switch"></span>
+                        </label>
                     </div>
                 </div>
+
+
+
 
             </fieldset>
             <div name="save-edit" class="btn btn-primary" data-view="list_view">update</div>

@@ -99,6 +99,9 @@ function select_difficulty(id) {
 }
 
 function draw_difficulty_pyramid(trapezes, number) {
+    if (number == undefined || number == null)
+        number = 0;
+
     for (var i = 0; i < (5 - number); ++i) {
         $(trapezes.get(i)).addClass('grey');
     }
