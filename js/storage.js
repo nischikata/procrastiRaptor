@@ -271,7 +271,31 @@ function addEventListeners(){
         saveEdits();
     });
 
+    $("div[name='rate-task-button']").click(function(evt) {
+    saveRatings();
 
+
+    });
+
+
+
+}
+
+function saveRatings() {
+    var updatedElems = {};
+    updatedElems["done"] = true;
+    updatedElems["a_satisfaction"] = $( "input:radio[name=f_a_satisfaction]:checked" ).val();
+    updatedElems["a_difficulty"] = $("#f_a_difficulty").data("difficulty");
+    updatedElems["a_time_effort"] = $('#f_a_duration2').data("seconds");
+
+    var key = $("#edit_task_view").data('key');
+
+    $.when(updateTaskElems(key, updatedElems)).then(function (result) {
+
+        displayActionSuccess("Task DONE!");
+        // TODO: only update this one list element!
+        updateTaskListView();
+    });
 }
 
 function saveEdits() {
@@ -309,9 +333,7 @@ function saveEdits() {
     var priority = $( "input:radio[name=e_priority]:checked" ).val();
     updatedElems["priority"] = priority;
 
-    // TODO returniert anscheinend immer true
     var done = $('#e_done').prop( "checked" )
-    console.log("Task is done?: " + done);
     updatedElems["done"] = done;
     var key = $("#edit_task_view").data('key');
     updateTaskElems(key, updatedElems);
@@ -398,7 +420,7 @@ function getTaskListElement(value, key) {
         } else if (!value.done && width < 2 * e.deltaX && e.overallVelocityX < 1.0) { // swipe right, mark Task DONE
             hammer_manager.remove("pan swipe");
 
-            finishTask(key, value.title, value.a_time_effort);
+            finishTask(key, value);
             $(native_li).fadeOut("fast", function() { $(native_li).css("transform", "").css("background-color", "").css("border-color", "").fadeIn('fast'); });
 
         } else {
@@ -443,7 +465,6 @@ function getTaskListElement(value, key) {
 function editTask(key, task) {
     var view_to_show = $("#edit_task_view");
     $("#edit_task_view").data('key', key);
-    console.log("task p time is: " +task.p_time_effort);
 
     $("#add-task-footer").hide(100);
     $(".view:visible").hide(250);
@@ -494,44 +515,29 @@ function editTask(key, task) {
 
 // once a task is swiped right to mark it as done
 // the user can rate his experience
-function finishTask(key, title, invested_time_s) {
+function finishTask(key, task) {
     resetFinishTaskForm();
-    $("#rate_task_title").text("'" + title + "'");
+    $("#form_rate_task").data('key', key);
+    $("#rate_task_title").text("'" + task.title + "'");
     var view_to_show = $("#rate_and_check_task");
     $("#add-task-footer").hide(100);
     $(".view:visible").hide(250);
     view_to_show.show(200);
     var a_time_effort = $('#f_a_duration2');
-    a_time_effort.val(toDurationString(invested_time_s));
-    a_time_effort.data('seconds', invested_time_s);
+    a_time_effort.val(toDurationString(task.a_time_effort));
+    a_time_effort.data('seconds', task.a_time_effort);
+    console.log(task);
 
 
-    $("div[name='rate-task-button']").click(function(evt) {
+    var a_trapezes = $('#f_a_difficulty').find(".trapez");
+    console.log("actual difficulty is: " + task.a_difficulty);
+    draw_difficulty_pyramid(a_trapezes, task.a_difficulty);
+    $('#f_a_difficulty').data("difficulty", task.a_difficulty);
+    // predicted satisfaction
 
-        //1. get and show view id="rate_and_check_task
-        // before showing add the task title to legend id="rate_task_title"
+    $("input[name='f_a_satisfaction']").val([task.a_satisfaction]);
 
-        // next get the current invested time, add the seconds to data-seconds attr
-        // and add the parsed value as placeholder or value
 
-        // next is the button submit (and reset or cancel, which returns to the view without marking task as done)
-
-        // TODO CHECK IF ALL THE UPDATES WERE SUCCESSFUL
-        // 1. update that task is done
-        var a_satisfaction = $( "input:radio[name=f_a_satisfaction]:checked" ).val();
-        var difficulty = $("#f_a_difficulty").data("difficulty");
-        var a_time = $('#f_a_duration2').data("seconds");
-
-        $.when(updateTask(key, "done", true), updateTask(key, "a_satisfaction", a_satisfaction), updateTask(key, "a_difficulty", difficulty), updateTask(key, "a_time_effort", a_time)).then(function (result) {
-
-            displayActionSuccess("Task is now done successfully.");
-            // TODO: only update this one list element!
-            updateTaskListView()
-        });
-    });
-    // 2. update rating for satisfaction, time and difficulty
-
-    // tODOD rewrite updateTask so i can give an array with stuff to update
 }
 
 function resetFinishTaskForm(){
@@ -540,7 +546,7 @@ function resetFinishTaskForm(){
     var duration_field = $("#f_a_duration2");
     duration_field.val("");
     duration_field.data("seconds", 0);
-    draw_difficulty_pyramid($("#f_a_difficulty").find(".trapez"), 0);
+    //draw_difficulty_pyramid($("#f_a_difficulty").find(".trapez"), 0);
 }
 
 function resetAddTaskForm(){
