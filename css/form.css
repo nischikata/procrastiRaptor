@@ -281,4 +281,9 @@ label + .difficulty > .trapez_5 {
 
 #decision_helper {
     display: inline-block;
+    width: 100px;
+    border: none;
+    background-color: transparent;
+    color: rgba(14, 100, 145, 0.9);
+    font-weight: bold;
 }
